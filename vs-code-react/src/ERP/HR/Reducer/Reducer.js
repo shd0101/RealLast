@@ -133,6 +133,17 @@ const HrReducer = (state = initialState, action) => {
         ...state,
         error: action.error,
       };
+
+ //*************************외출 및 조퇴 신청 시작 _준서 _20.08.25 *************************
+    case types.REST_ATTD_REQUEST:
+      console.log("HR리듀서 REST_ATTD_REQUEST");
+      console.log(action);
+      console.log(action.payload);
+    return {
+      ...state
+    };
+//*************************외출 및 조퇴 신청 종료 _준서 _20.08.25 *************************
+
  //===================인봉=====================================일근태관리//===================인봉=====================================일근태관리
     case types.SEARCH_DAY_ATTD_LIST_All:
       return {

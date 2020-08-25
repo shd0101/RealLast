@@ -64,6 +64,12 @@ export const closeSalaryWithSlipFailure = createAction(
 
 //*************************  지원 담당   종료********************************** */
 
+//*************************외출 및 조퇴 신청 시작 _준서 _20.08.24 *************************
+export const restAttdRequest = createAction(types.REST_ATTD_REQUEST);
+export const restAttdSuccess =createAction(types.REST_ATTD_SUCCESS);
+export const restAttdFailure =createAction(types.REST_ATTD_FAILURE);
+//*************************외출 및 조퇴 신청 종료 _준서 _20.08.24 *************************
+
 /*
 export const searchCompanyCode = code => ({ type : types.SEARCH_COMPANY_CODE , code });
 export const searchWorkPlaceCode = code => ({ type : types.SEARCH_WORK_PLACE_CODE , code });

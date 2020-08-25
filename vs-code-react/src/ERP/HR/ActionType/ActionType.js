@@ -109,3 +109,9 @@ export const SELECT_DAY_ATTD_FAILURE =
   "src/ERP/HR/Saga/Saga/SELECT_DAY_ATTD_FAILURE";
   
 //============================== 일근태등록 원구 시작===============================================//
+
+//*************************외출 및 조퇴 신청 시작 _준서 _20.08.24 *************************
+export const REST_ATTD_REQUEST = "src/ERP/HR/Saga/Saga/REST_ATTD_REQUEST";
+export const REST_ATTD_SUCCESS = "src/ERP/HR/Saga/Saga/REST_ATTD_SUCCESS";
+export const REST_ATTD_FAILURE = "src/ERP/HR/Saga/Saga/REST_ATTD_FAILURE";
+//*************************외출 및 조퇴 신청 종료 _준서 _20.08.24 *************************

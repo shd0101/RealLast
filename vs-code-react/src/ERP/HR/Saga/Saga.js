@@ -15,6 +15,8 @@ import {
   EmpDetailedInfoFailure,
   EmpUpdateSuccess,
   EmpUpdateFailure,
+  restAttdSuccess,
+  restAttdFailure
 } from "../Action/Action";
 
 function* codeSaga(action) {
@@ -313,6 +315,43 @@ function* DayAttdSSaga(action) {
 
 //=================================일근태 관리 원구 종료 ======================================//
 
+// *********************** 외출 조퇴 신청 시작 _준서 ***********************
+function* restAttdSaga(action) {
+  console.log("HR Saga Func_restAttdSaga")
+  console.log(action);
+  try {
+    const { data } = yield axios({
+      method: "post",
+      url: "http://localhost:8282/hr/attendance/registRestAttd.do",
+      params: {
+          empCode: action.empCode,
+          restTypeCode: action.restTypeCode,
+          restTypeName: action.restTypeName,
+          requestDate: action.requestDate,
+          startDate: action.startDate,
+          endDate: action.endDate,
+          cause: action.cause,
+          approvalStatus: action.approvalStatus,
+          rejectCause: action.rejectCause,
+          cost: action.cost,
+          startTime: action.startTime,
+          endTime: action.endTime,
+          numberOfDays: action.numberOfDays,
+      },
+    });
+    yield put(restAttdSuccess(data));
+  } catch (e) {
+    yield put(restAttdFailure(e.message));
+  }
+}
+// *********************** 외출 조퇴 신청 종료 _준서 ***********************
+
+// *********************** 외출 조퇴 신청 시작 _준서 ***********************
+export function* onRestAttdSaga(){
+  yield takeLatest(types.REST_ATTD_REQUEST, restAttdSaga);
+}
+// *********************** 외출 조퇴 신청 종료 _준서 ***********************
+
 export function* onSalaryReqeust() {
   yield takeLatest(types.SALARY_LIST_REQUEST, salaryListSaga);
 }
@@ -379,5 +418,6 @@ export default function* HrSaga() {
     call(onEmpUpdateRequest), //유주
     call(onInsertDayAttd), // 원구
     call(onSelectDayAttd), // 원구
+    call(onRestAttdSaga)    // 준서
   ]);
 }

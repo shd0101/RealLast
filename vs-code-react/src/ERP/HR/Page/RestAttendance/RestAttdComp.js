@@ -142,6 +142,7 @@ const RestAttdComp = props => {
                 value={attdRestTypeCode.value}
                 onChange={attdRestTypeCode.onChange}
               >
+                <option value="">ALL</option>
                 <option value="ADC003">공외출</option>
                 <option value="ADC005">사외출</option>
                 <option value="DAC004">조퇴</option>
@@ -170,7 +171,7 @@ const RestAttdComp = props => {
                 shrink: true
               }}
             />
-            
+            <br/>
             <TextField
               id="attdRestStartDate"
               label="근태외 시작일"
@@ -183,6 +184,7 @@ const RestAttdComp = props => {
                 shrink: true
               }}
             />
+            <br/>
             <TextField
               id="attdRestEndDate"
               label="근태외 종료일"
@@ -195,6 +197,7 @@ const RestAttdComp = props => {
                 shrink: true
               }}
             />
+            <br/>
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel
                 ref={inputLabel}
@@ -222,6 +225,7 @@ const RestAttdComp = props => {
                 <MenuItem value="ETS004">식비</MenuItem>
               </Select>
             </FormControl>
+            <br/>
             <TextField
               id="cause"
               label="근태외 사유"
