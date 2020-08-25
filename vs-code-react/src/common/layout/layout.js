@@ -124,6 +124,15 @@ function Layout(props) {
               component={hr.MonthAttdManageContainer}
             />{" "}
            
+            {/************************** 외출 및 조퇴 시작 _준서 _20.08.25 */}
+            {/* 외출,조퇴 신청/조회 */}
+            <Route
+              exact
+              path="/app/hr/attendance/restAttendance"
+              component={hr.RestAttendance}
+            />{" "}
+            {/************************** 외출 및 조퇴 종료 _준서 _20.08.25 */}
+
             {/* 급여조회 */}
             {/* 월급여 조회 */}
             {/*******************2020-08-20 손유찬*************************/}

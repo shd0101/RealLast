@@ -4,7 +4,7 @@ export { default as EmpRegist } from "ERP/HR/Page/EmpRegist/EmpRegist"; //사원
 
 // 사 원 관 리 =========================================================================================================================
 export { default as DayAttendance } from "ERP/HR/Page/DayAttendance/Container"; // 일근태 조회 / 등록      //원구
-export { default as RestAttendance } from "ERP/HR/Page/RestAttendance/RestAttendance"; //조퇴/외출/휴가 관리 //인봉
+export { default as RestAttendance } from "ERP/HR/Page/RestAttendance/RestAttendance"; //외출 및 조퇴 시작 _준서 _20.08.24
 
 // 근 태 관 리 =========================================================================================================================
 export { default as DayAttdManageContainer } from "ERP/HR/Page/DayAttdManage/DayAttdManageContainer"; // 일 근태 관리      //인봉
