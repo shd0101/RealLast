@@ -89,7 +89,7 @@ const RestAttdComp = props => {
       (new Date(attdRestEndDate.value).getTime() -
         new Date(attdRestStartDate.value).getTime()) /
       (1000 * 60 * 60 * 24)
-    ).toString()
+    ).toString();
     
     const restAttdApplyData = {
       empCode: sessionStorage.getItem("empCodeInfo_token"),
@@ -139,7 +139,6 @@ const RestAttdComp = props => {
                 open={attdRestOpen}
                 onClose={attdRestHandleClose}
                 onOpen={attdRestHandleOpen}
-                value={attdRestTypeCode.value}
                 onChange={attdRestTypeCode.onChange}
               >
                 <option value="">ALL</option>
