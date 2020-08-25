@@ -26,7 +26,7 @@
 		
 	</resultMap>
 
-	
+	<!--****************************************************2020-08-26 김준서 ******************************************** -->
 	<select id="selectRestAttdList" resultMap="restAttdResult" parameterType="map">
 		SELECT R.EMP_CODE 
 		, E.EMP_NAME 
@@ -44,12 +44,13 @@
 		, R.START_TIME
 		, R.END_TIME 
 		FROM REST_ATTD R 
-		, EMP E 
+		, EMPLOYEE_BASIC E 
 		WHERE R.EMP_CODE = #{empCode}
 		AND R.REQUEST_DATE BETWEEN TO_DATE(#{startDate},'YYYY-MM-DD') 
 		AND TO_DATE(#{endDate},'YYYY-MM-DD') 
 		AND R.EMP_CODE = E.EMP_CODE 
 	</select>
+	<!--****************************************************2020-08-26 김준서 ******************************************** -->
 		
 	<select id="selectRestAttdListByDept" resultMap="restAttdResult" parameterType="map">
 		SELECT R.EMP_CODE 
@@ -166,6 +167,7 @@
 		AND REST_ATTD_CODE = #{restAttdCode}
 	</delete> 
 	
+	<!--****************************************************2020-08-26 김준서 ******************************************** -->
 	<select id="selectRestAttdListCode" resultMap="restAttdResult" parameterType="map">
 		SELECT R.EMP_CODE
 		, E.EMP_NAME
@@ -183,13 +185,14 @@
 		, R.START_TIME
 		, R.END_TIME 
 		FROM REST_ATTD R 
-		, EMP E 
+		, EMPLOYEE_BASIC E 
 		WHERE R.EMP_CODE = #{empCode}
 		AND R.REQUEST_DATE BETWEEN TO_DATE(#{startDate},'YYYY-MM-DD')
 		AND TO_DATE(#{endDate},'YYYY-MM-DD') 
 		AND R.REST_TYPE_CODE = #{code}
 		AND R.EMP_CODE = E.EMP_CODE 
 	</select>
+	<!--****************************************************2020-08-26 김준서 ******************************************** -->
 	
 	
 		<select id="selectRestDatailCodeName" resultMap="restAttdResult" >
