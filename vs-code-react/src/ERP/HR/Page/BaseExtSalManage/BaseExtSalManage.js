@@ -32,25 +32,38 @@ const BaseExtSalManage = () => {
       });
   }, []);
 
-  const onRowSelected = event => {
 
-      let list = [];
-      list.push(event.api.getSelectedRows());
-      setData(list[0]);
-      console.log("온셀로우 이벤트 "+ data + list[0]);
-    
+let list = [];
+let count = 0;
+
+ function doSomething(row){ 
+  list.push(row.data);
+  console.log("이건 로우 데이타");
+  console.log(row.data);
+  console.log("list 갯수 "+count);
+  console.log(list[count].extSalCode);
+  console.log(list[count].extSalName);
+  console.log(list[count].ratio);
+  count++;
+ } ;
+
+
+
+  const updateOnClick = event => {
+
+    if(list){
+    console.log("온셀로우 이벤트 " + list);
+    axios({
+      headers: { "Content-Type": "application/json" },
+      method: "post",
+      url: "http://localhost:8282/hr/salary/baseExtSalManage.do",
+      data: {
+        baseExtSalList: list,
+      },
+    });}
+    else alert("수정 된 내역이 없습니다.");
   };
 
-
-/* 
-  const onUpdate = event => {
-    event.api.setRowData(dataList)
-    const selectedNodes = event.Api.getSelectedRows()
-   // const selectedData = selectedNodes.map( node => node.data )
-   // const selectedDataStringPresentation = selectedData.map( node => node.make + ' ' + node.model).join(', ')
-  //  alert("Selected nodes:"+selectedDataStringPresentation)
-  };
- */
   
 
   //AG 그리드의 헤드
@@ -94,23 +107,27 @@ const BaseExtSalManage = () => {
          <AgGridReact
             columnDefs={state.columnDefs}
             rowData={state.rowData}
-            onCellEditingStopped={onRowSelected}
+            onCellEditingStopped={doSomething}
             onGridReady={event => {
               event.api.sizeColumnsToFit();
               setGridEvent(event);
             }}
           ></AgGridReact>
+          <br/>
         </div>
-        <Button
-        variant="contained"
-        color="primary"
-        size="large"
-        onClick={onRowSelected}
-        startIcon={<InputIcon />}
-      >
-        수정
-      </Button>
+        <FormControl style={{ minWidth: "200px" }}/>
+        <FormControl style={{ minWidth: "200px" }}>
+                  <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  onClick={updateOnClick}
+                  startIcon={<InputIcon />} >
+                  수정
+                </Button>
+      </FormControl>
       </div>
+      
     )
   );
 };

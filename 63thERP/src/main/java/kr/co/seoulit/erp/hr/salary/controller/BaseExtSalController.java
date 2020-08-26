@@ -1,3 +1,4 @@
+
 package kr.co.seoulit.erp.hr.salary.controller;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class BaseExtSalController {
 		return map;
 	}
 
-	@RequestMapping(value = "/salary/baseExtSalManage.do",method = RequestMethod.PUT)
+	@RequestMapping(value = "/salary/baseExtSalManage.do",method = RequestMethod.POST)
 	public ModelMap modifyBaseExtSalList(@RequestBody Map<String , ArrayList<BaseExtSalTO>> sendData){
 
 		try {

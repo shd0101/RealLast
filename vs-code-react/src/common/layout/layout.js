@@ -42,6 +42,8 @@ function Layout(props) {
             {/* 메인 홈 : 여기도 이상없이 잘됨 */}
             <Route path="/app/dashboard" component={Dashboard} />
             {/* 각자 업무에 맞게 라우터를 정의 하시오 */}
+
+
             {/* 회 계 */}
             {/* 전표입력 */}
             <Route
@@ -57,6 +59,12 @@ function Layout(props) {
             />{" "}
             {/* 전표승인 */}
             {/* 계정과목 및 계정 */}
+            {/* 계정과목 */}
+            <Route
+              exact
+              path="/app/acc/base/accountForm"
+              component={account.AccountForm}
+            />{" "}
             {/* 거래처원장 */}
             <Route
               exact
@@ -64,13 +72,28 @@ function Layout(props) {
               component={account.FinancialStatements}
             />{" "}
             {/* 재무상태표 */}
+            {/* 합계잔액시산표 */}
             <Route
               exact
               path="/app/acc/statement/totalTrialBalance"
               component={account.TotalTrialBalance}
             />{" "}
-            {/* 합계잔액시산표 */}
-            {/* 전기분손익계산서 */}
+            {/*********************************** 2020-08-24 조편백 추가 ***********************************/}
+            {/* 손익계산서 */}
+            <Route
+              exact
+              path="/app/acc/statement/IncomeStatement"
+              component={account.IncomeStatement}
+            />{" "}
+            {/*********************************** 2020-08-24 조편백 끝 ***********************************/}
+            {/*********************************** 2020-08-24 정대현 추가 ***********************************/}
+            {/* 현금출납장 */}
+            <Route
+              exact
+              path="/app/acc/statement/cashJournal"
+              component={account.CashJournal}
+            />
+            {/*********************************** 2020-08-24 정대현 끝 ***********************************/}
             {/* 매입매출장 */}
             {/* 분개장 */}
             <Route
@@ -78,6 +101,18 @@ function Layout(props) {
               path="/app/acc/account/journalForm"
               component={account.JournalForm}
             />
+            {/* ///////////////////////// 2020-08-24 김진호 추가 /////////////////////////// */}
+            {/* 일(월)계표 */}
+            <Route
+              exact
+              path="/app/acc/statement/detailTrialBalance"
+              component={account.DetailTrialBalance}
+            />{" "}
+            {/* ///////////////////////// 2020-08-24 김진호 끝  /////////////////////////// */}
+
+
+
+
             {/* 인 사 */}
             {/* 인사관리 */}
             <Route
@@ -124,15 +159,6 @@ function Layout(props) {
               component={hr.MonthAttdManageContainer}
             />{" "}
            
-            {/************************** 외출 및 조퇴 시작 _준서 _20.08.25 */}
-            {/* 외출,조퇴 신청/조회 */}
-            <Route
-              exact
-              path="/app/hr/attendance/restAttendance"
-              component={hr.RestAttendance}
-            />{" "}
-            {/************************** 외출 및 조퇴 종료 _준서 _20.08.25 */}
-
             {/* 급여조회 */}
             {/* 월급여 조회 */}
             {/*******************2020-08-20 손유찬*************************/}
@@ -158,7 +184,10 @@ function Layout(props) {
             />{" "}
             {/*******************2020-08-22 손유찬*************************/}
 
-            {/* 물 류 */}
+
+
+
+        {/* 물 류 */}
             {/* 기초정보관리 */}
             {/* 물류정보관리 */}
             {/* 영업관리 */}
@@ -186,6 +215,11 @@ function Layout(props) {
               path="/app/logi/purchase/orderRegister"
               component={logistic.OrderRegister}
             />
+            {/* 납품관리 */}
+            <Route
+              path="/app/logi/sales/deliveryInfo"
+              component={logistic.Delivery}
+            />
             {/**발주 및 재고처리 */}
             <Route
               path="/app/logi/purchase/stockInfo"
@@ -203,6 +237,11 @@ function Layout(props) {
               component={logistic.WorkInstruction}
             />{" "}
             {/* MPS */}
+
+
+
+
+
             {/* 부가기능 Route 여긴 이상없이 잘됨 */}
             <Route path="/app/typography" component={additional.Typography} />
             <Route path="/app/tables" component={additional.Tables} />
