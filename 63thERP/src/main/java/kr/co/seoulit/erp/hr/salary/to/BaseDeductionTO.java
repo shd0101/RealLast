@@ -9,5 +9,7 @@ import lombok.EqualsAndHashCode;
 public class BaseDeductionTO extends BaseTO{
 	private String deductionCode,
 	deductionName,
-	ratio;
+	ratio,
+	status
+	;
 }

@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import { FormControl,AppBar,Toolbar,Typography,} from "@material-ui/core";
 import InputIcon from "@material-ui/icons/Input";
 
-const BaseExtSalManage = () => {
+const BaseDeductionManage = () => {
 
     const [dataList, setDataList] = useState([]);
     const [data, setData] = useState("");
@@ -17,10 +17,10 @@ const BaseExtSalManage = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8282/hr/salary/baseExtSalManage.do",)
+            .get("http://localhost:8282/hr/salary/baseDeductionManage.do",)
             .then(response => {
                 console.log("리스펀스 ", response);
-                setDataList(response.data.baseExtSalList);
+                setDataList(response.data.baseDeductionList);
                 console.log(dataList);
             })
             .catch(e => {
@@ -31,21 +31,18 @@ const BaseExtSalManage = () => {
 //수정된 값을 담을 배열
 let list = [];
 
-//콘솔에 찍어보려고 선언한 
-let count = 0; 
-
-//그리드 수정이 끝난후 발생하는 이벤트의 콜백메서드
+//콘솔에 찍어보려고 선언한 count let count = 0; 그리드 수정이 끝난후 발생하는 이벤트의 콜백메서드
 function CellEditingStopped(row) {
     row.data.status = "update"
     list.push(row.data);
-console.log("이건 로우 데이타");
+    /*   console.log("이건 로우 데이타");
   console.log(row.data);
   console.log("list 갯수 "+count);
   console.log(list[count].extSalCode);
   console.log(list[count].extSalName);
   console.log(list[count].ratio);
-  console.log(list[count].status); 
-    count++;
+  console.log(list[count].status); */
+    //count++;
 };
 
 //수정 버튼 이벤트
@@ -54,9 +51,9 @@ const updateOnClick = event => {
     if (list) {
         console.log("온셀로우 이벤트 " + list);
         axios.post(
-            "http://localhost:8282/hr/salary/baseExtSalManage.do",
+            "http://localhost:8282/hr/salary/baseDeductionManage.do",
             {
-                baseExtSalList: list
+              sendData : list
             },
             {
                 headers: {
@@ -76,8 +73,8 @@ const updateOnClick = event => {
   //AG 그리드의 헤드
   const state = {
     columnDefs: [
-      { headerName: "초과수당 코드", field: "extSalCode", },
-      { headerName: "초과수당명", field: "extSalName",},
+      { headerName: "초과수당 코드", field: "deductionCode", },
+      { headerName: "초과수당명", field: "deductionName",},
       { headerName: "초과수당 배수", field: "ratio", editable:true},
 
     ],
@@ -91,7 +88,7 @@ const updateOnClick = event => {
           <div>
           <AppBar position="relative">
             <Toolbar>
-              <Typography variant="h5">초과수당관리</Typography>
+              <Typography variant="h5">공제기준관리</Typography>
             </Toolbar>
           </AppBar>
         </div>
@@ -132,6 +129,6 @@ const updateOnClick = event => {
     )
   );
 };
-export default BaseExtSalManage;
+export default BaseDeductionManage;
 
 //**************************2020-08-20 63기 손유찬 ********************************* 

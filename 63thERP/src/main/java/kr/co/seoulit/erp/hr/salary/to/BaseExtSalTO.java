@@ -9,5 +9,6 @@ import lombok.EqualsAndHashCode;
 public class BaseExtSalTO  extends BaseTO{
 	private String extSalCode,
 	extSalName,
-	ratio;
+	ratio,
+	status;
 }

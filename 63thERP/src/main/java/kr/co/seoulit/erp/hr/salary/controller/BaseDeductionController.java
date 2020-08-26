@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 //import kr.co.seoulit.erp.base.controller.DeptListController;
@@ -24,39 +22,41 @@ import kr.co.seoulit.erp.hr.salary.to.BaseDeductionTO;
 public class BaseDeductionController {
 	@Autowired
 	private  SalaryServiceFacade salaryServiceFacade;
+	HashMap<String,Object> map = new HashMap<>();
 	
-	
-	@RequestMapping("/salary/baseDeductionManage.do")
-	@ResponseBody
-	public Map<String, Object> findBaseDeductionList(HttpServletRequest request, HttpServletResponse response){
-		Map<String, Object> map = new HashMap<String, Object>();
-			response.setContentType("application/json; charset=UTF-8");
+	@RequestMapping(value = "/salary/baseDeductionManage.do",method = RequestMethod.GET)
+	public HashMap<String,Object> findBaseDeductionList(){
+		try {
 			ArrayList<BaseDeductionTO> baseDeductionList = salaryServiceFacade.findBaseDeductionList();
 			map.put("baseDeductionList", baseDeductionList);
 			BaseDeductionTO emptyBean = new BaseDeductionTO();
-//			emptyBean.setStatus("insert");
+			emptyBean.setStatus("insert");
 			map.put("emptyBean", emptyBean);
 			map.put("errorMsg","success");
 			map.put("errorCode", 0);
 
-		
-		
+		} catch (Exception ioe) {
+			map.clear();
+			map.put("errorCode", -1);
+			map.put("errorMsg", ioe.getMessage());
+		}
+
 		return map;
 	}
-	
-	/*
-	 * public ModelAndView batchBaseDeductionProcess(HttpServletRequest request,
-	 * HttpServletResponse response){ String sendData =
-	 * request.getParameter("sendData"); try {
-	 * response.setContentType("application/json; charset=UTF-8");; // 간편하고 성능좋은
-	 * gson으로 변경 Gson gson = new Gson(); ArrayList<BaseDeductionTO>
-	 * baseDeductionList = gson.fromJson(sendData, new
-	 * TypeToken<ArrayList<BaseDeductionTO>>(){}.getType());
-	 * salaryServiceFacade.batchBaseDeductionProcess(baseDeductionList);
-	 * modelMap.put("errorMsg","success"); modelMap.put("errorCode", 0); } catch
-	 * (Exception ioe) { modelMap.clear(); modelMap.put("errorMsg",
-	 * ioe.getMessage()); } modelAndView = new ModelAndView("jsonView", modelMap);
-	 * return modelAndView; }
-	 */
-	
+
+	@RequestMapping(value = "/salary/baseDeductionManage.do",method = RequestMethod.POST)
+	public HashMap<String,Object> batchBaseDeductionProcess(@RequestBody Map<String , ArrayList<BaseDeductionTO>> sendData){
+		try {		
+			ArrayList<BaseDeductionTO> baseDeductionList = sendData.get("sendData");
+			salaryServiceFacade.batchBaseDeductionProcess(baseDeductionList);
+			map.clear();
+			map.put("errorMsg","success");
+			map.put("errorCode", 0);
+		} catch (Exception ioe) {
+			map.clear();
+			map.put("errorCode", -1);
+			map.put("errorMsg", ioe.getMessage());
+		}
+		return map;
+	}
 }

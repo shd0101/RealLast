@@ -45,6 +45,7 @@ public class BaseExtSalController {
 		try {
 			map = new ModelMap();
 			ArrayList<BaseExtSalTO> baseExtSalList = sendData.get("baseExtSalList");
+			System.out.println("**************수정할놈 "+baseExtSalList);
 			salaryServiceFacade.modifyBaseExtSalList(baseExtSalList);
 			map.put("errorMsg","success");
 			map.put("errorCode", 0);

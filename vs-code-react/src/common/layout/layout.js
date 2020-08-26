@@ -126,39 +126,18 @@ function Layout(props) {
               path="/app/hr/emp/empRegist"
               component={hr.EmpRegist}
             />
+            
+            
             {/*  사원등록*/}
             {/* 사원메뉴 */}
+            {/************************** 일근태기록조회 _재영 _20.08.26 */}
             <Route
               exact
               path="/app/hr/attendance/dayAttendance"
               component={hr.DayAttendance}
             />{" "}
-            {/* 일근태조회/신청 */}
-            <Route
-              exact
-              path="/app/hr/attendance/restAttendance"
-              component={hr.RestAttendance}
-            />{" "}
-            {/* 일근태조회/신청 */}
-            {/* 근태관리 */}
-            <Route
-              exact
-              path="/app/hr/attendance/dayAttendanceManage"
-              component={hr.DayAttdManageContainer}
-            />{" "}
-            {/* 일근태관리 */}
-            <Route
-              exact
-              path="/app/hr/attendance/monthAttendanceManage"
-              component={hr.MonthAttdManageContainer}
-            />{" "}
-            {/* 월근태관리 */}
-            <Route
-              exact
-              path="/app/hr/attendance/monthAttendanceManage"
-              component={hr.MonthAttdManageContainer}
-            />{" "}
-           
+            {/************************** 일근태기록조회 _재영 _20.08.26 */}
+
             {/* 외출,조퇴 신청/조회 */}
             {/************************** 외출 및 조퇴 시작 _준서 _20.08.25 */}
             <Route
@@ -168,15 +147,41 @@ function Layout(props) {
             />{" "}
             {/************************** 외출 및 조퇴 종료 _준서 _20.08.25 */}
 
+            {/* 근태관리 */}
+             {/************************** 일근태관리 _재영 _20.08.21 */}
+            <Route
+              exact
+              path="/app/hr/attendance/dayAttendanceManage"
+              component={hr.DayAttdManageContainer}
+            />{" "}
+              {/************************** 일근태관리 _재영 _20.08.21 */}
+
+            {/************************** 월근태관리 _재영 _20.08.23 */}
+            <Route
+              exact
+              path="/app/hr/attendance/monthAttendanceManage"
+              component={hr.MonthAttdManageContainer}
+            />{" "}
+           {/************************** 월근태관리 _재영 _20.08.23 */}            
+            
+            {/* 결재승인관리 */}
+            <Route
+              exact
+              path="/app/hr/attendance/monthAttendanceManage"
+              component={hr.MonthAttdManageContainer}
+            />{" "}
+
+           
+
             {/* 급여조회 */}
             {/* 월급여 조회 */}
-            {/*******************2020-08-20 손유찬*************************/}
+            {/*******************2020-08-20 손유찬 시작*************************/}
             <Route
               exact
               path="/app/hr/Salary/monthSalary"
               component={hr.MonthSalaryManage}
             />{" "}
-            {/*******************2020-08-20 손유찬*************************/}
+            {/*******************2020-08-20 손유찬 종료*************************/}
             {/* 급여관리 */}
             {/* 월급여마감 */}
             <Route
@@ -185,13 +190,21 @@ function Layout(props) {
               component={hr.CloseSalaryContainer}
             />{" "}
             {/* 초과수당관리 */}
-            {/*******************2020-08-22 손유찬*************************/}
+            {/*******************2020-08-22 손유찬 시작*************************/}
             <Route
               exact
               path="/app/hr/salary/baseExtSalManage"
               component={hr.BaseExtSalManage}
             />{" "}
-            {/*******************2020-08-22 손유찬*************************/}
+            {/*******************2020-08-22 손유찬 종료*************************/}
+            {/* 공제기준관리 */}
+            {/*******************2020-08-26 손유찬 시작*************************/}
+            <Route
+              exact
+              path="/app/hr/salary/baseDeductionManage"
+              component={hr.BaseDeductionManage}
+            />{" "}
+            {/*******************2020-08-26 손유찬 종료*************************/}
 
 
 
