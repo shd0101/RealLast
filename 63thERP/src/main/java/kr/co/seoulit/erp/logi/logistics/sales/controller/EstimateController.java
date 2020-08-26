@@ -52,9 +52,10 @@ public class EstimateController {
 	}
 
 // 酉곕떒�뿉 二쇱꽍 泥섎━ �릺�뼱�엳�쓬
-	public ModelMap searchEstimateDetailInfo(@RequestParam String estimateNo) {
+	@RequestMapping("/searchEstimateDetail.do")
+	public ModelMap searchEstimateDetailInfo(HttpServletRequest request, HttpServletResponse response) {
 		
-		//String estimateNo = request.getParameter("estimateNo");
+		String estimateNo = request.getParameter("estimateNo");
 
 		try {
 

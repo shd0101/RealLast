@@ -17,9 +17,11 @@ public interface StatementServiceFacade {
 
     public HashMap<String, Object> getIncomeStatement(String toDate);
     
-    public ArrayList<DetailTrialBalanceBean> getDetailTrialBalance(String fromDate, String toDate);
-
     public ArrayList<CashJournalBean> getCashJournal(String fromDate, String toDate);
+    
+///////////////////////// 2020-08-24 김진호  수정///////////////////////////    
+public ArrayList<DetailTrialBalanceBean> getDetailTrialBalance(String fromDate, String toDate);
+///////////////////////// 2020-08-24 김진호  끝///////////////////////////    
 
 }
 

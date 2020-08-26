@@ -34,12 +34,7 @@ public class StatementServiceFacadeImpl implements StatementServiceFacade {
     public HashMap<String, Object> getFinancialPosition(String toDate) {
         return statementApplicationService.getFinancialPosition(toDate);
     }
-
-	@Override
-	public ArrayList<DetailTrialBalanceBean> getDetailTrialBalance(String fromDate, String toDate) {
-	    return statementApplicationService.getDetailTrialBalance(fromDate, toDate);
-	}
-
+ 
 	@Override
 	public ArrayList<CashJournalBean> getCashJournal(String fromDate, String toDate) {
         return statementApplicationService.getCashJournal(fromDate, toDate);
@@ -48,5 +43,11 @@ public class StatementServiceFacadeImpl implements StatementServiceFacade {
 	  public HashMap<String, Object> addEarlyStatements(String toDate){	      
 			return statementApplicationService.addEarlyStatements(toDate);
 	    }
-
+	  
+///////////////////////// 2020-08-24 김진호  수정///////////////////////////
+@Override
+public ArrayList<DetailTrialBalanceBean> getDetailTrialBalance(String fromDate, String toDate) {
+return statementApplicationService.getDetailTrialBalance(fromDate, toDate);
+}
+///////////////////////// 2020-08-24 김진호  끝///////////////////////////
 }

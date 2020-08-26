@@ -1,3 +1,4 @@
+/*¼ö  Á¤*/
 package kr.co.seoulit.erp.logi.logistics.sales.controller;
 
 import java.util.ArrayList;
@@ -5,11 +6,12 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import kr.co.seoulit.erp.logi.logistics.sales.serviceFacade.SalesServiceFacade;
 
@@ -18,7 +20,7 @@ import kr.co.seoulit.erp.logi.logistics.sales.to.DeliveryInfoTO;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/logi/sales/*")
+@RequestMapping(value = "/logi/logistics/sales/*", produces = "application/json")
 public class DeliveryController {
 
 	@Autowired
@@ -26,7 +28,8 @@ public class DeliveryController {
 	
 	private ModelMap modelMap = new ModelMap();
 
-	@RequestMapping("/searchDeliveryInfoList.do")
+	/*********************³³Ç°ÇöÈ² Á¶È¸ 2020-08-23 ±èÅÂÀ±***********************/
+	@RequestMapping("/searchDeliveryInfoList")
 	public ModelMap searchDeliveryInfoList(HttpServletRequest request, HttpServletResponse response) {
 
 		try {
@@ -35,7 +38,7 @@ public class DeliveryController {
 
 			modelMap.put("gridRowJson", deliveryInfoList);
 			modelMap.put("errorCode", 0);
-			modelMap.put("errorMsg", "ì„±ê³µ");
+			modelMap.put("errorMsg", "¼º°ø");
 
 		} catch (Exception e2) {
 			e2.printStackTrace();
@@ -62,7 +65,7 @@ public class DeliveryController {
 //
 //			modelMap.put("result", resultMap);
 			modelMap.put("errorCode", 1);
-			modelMap.put("errorMsg", "ì„±ê³µ");
+			modelMap.put("errorMsg", "¼º°ø");
 
 		} catch (Exception e2) {
 			e2.printStackTrace();
@@ -74,13 +77,9 @@ public class DeliveryController {
 		return modelMap;
 	}
 
-	@RequestMapping("/searchDeliverableContractList.do")
-	public ModelMap searchDeliverableContractList(HttpServletRequest request, HttpServletResponse response) {
-
-		String searchCondition = request.getParameter("searchCondition");
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
-		String customerCode = request.getParameter("customerCode");
+	/*********************³³Ç°°¡´É¼öÁÖÁ¶È¸ Á¶È¸ 2020-08-23 ±èÅÂÀ±***********************/
+	@RequestMapping("/searchDeliverableContractList")
+	public ModelMap searchDeliverableContractList(@RequestParam String startDate, @RequestParam String endDate,@RequestParam String searchCondition, @RequestParam String customerCode) {
 
 		try {
 
@@ -96,11 +95,11 @@ public class DeliveryController {
 				String[] paramArray = { customerCode };
 				deliverableContractList = salesSF.getDeliverableContractList("searchByCustomer", paramArray);
 
-			}
+			} 
 
 			modelMap.put("gridRowJson", deliverableContractList);
 			modelMap.put("errorCode", 0);
-			modelMap.put("errorMsg", "ì„±ê³µ");
+			modelMap.put("errorMsg", "¼º°ø");
 
 		} catch (Exception e2) {
 			e2.printStackTrace();

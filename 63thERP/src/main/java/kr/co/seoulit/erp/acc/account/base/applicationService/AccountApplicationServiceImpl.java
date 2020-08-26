@@ -1,12 +1,14 @@
 package kr.co.seoulit.erp.acc.account.base.applicationService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kr.co.seoulit.erp.acc.account.base.dao.AccountDAO;
 import kr.co.seoulit.erp.acc.account.base.to.AccountBean;
+import kr.co.seoulit.erp.acc.account.base.to.AccountCodeBean;
 import kr.co.seoulit.erp.acc.account.base.to.AccountControlBean;
 import kr.co.seoulit.erp.acc.account.base.applicationService.AccountApplicationService;
 import kr.co.seoulit.erp.acc.account.base.applicationService.AccountApplicationServiceImpl;
@@ -53,6 +55,11 @@ public class AccountApplicationServiceImpl implements AccountApplicationService 
     public ArrayList<AccountControlBean> getAccountControlList(String accountCode) {
         return accountDAO.selectAccountControlList(accountCode);
     }
+
+	@Override
+	public List<AccountCodeBean> getAccountList() {
+		return accountDAO.getAccountList();
+	}
 
 
 }

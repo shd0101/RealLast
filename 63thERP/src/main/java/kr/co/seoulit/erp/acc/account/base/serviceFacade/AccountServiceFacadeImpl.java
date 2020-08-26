@@ -1,12 +1,14 @@
 package kr.co.seoulit.erp.acc.account.base.serviceFacade;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.seoulit.erp.acc.account.base.applicationService.AccountApplicationService;
 import kr.co.seoulit.erp.acc.account.base.to.AccountBean;
+import kr.co.seoulit.erp.acc.account.base.to.AccountCodeBean;
 import kr.co.seoulit.erp.acc.account.base.to.AccountControlBean;
 import kr.co.seoulit.erp.acc.account.base.applicationService.AccountApplicationServiceImpl;
 import kr.co.seoulit.erp.acc.account.base.serviceFacade.AccountServiceFacade;
@@ -59,5 +61,10 @@ public class AccountServiceFacadeImpl implements AccountServiceFacade{
         return accountApplicationService.getAccountControlList(accountCode);
             
     }
+
+	@Override
+	public List<AccountCodeBean> getAccountList() {
+		return accountApplicationService.getAccountList();
+	}
 
 }

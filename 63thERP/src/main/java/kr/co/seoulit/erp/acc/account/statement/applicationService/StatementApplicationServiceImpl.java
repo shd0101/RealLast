@@ -64,19 +64,16 @@ public class StatementApplicationServiceImpl implements StatementApplicationServ
             return param;
     }
 
-   
  
-
-	@Override
-	public ArrayList<DetailTrialBalanceBean> getDetailTrialBalance(String fromDate, String toDate) {
-
-	        return detailTrialBalanceDAO.selectDetailTrialBalance(fromDate, toDate);
-	}
-
 	@Override
 	public ArrayList<CashJournalBean> getCashJournal(String fromDate, String toDate) {	
 	   
-	        return cashJournalDAO.selectCashJournalList(fromDate, toDate);
+	     /************************ 2020.08.24 정대현 수정 **********************/
+		HashMap<String, Object> param =new HashMap<>();
+		param.put("fromDate", fromDate);
+		param.put("toDate", toDate);
+	    return cashJournalDAO.selectCashJournalList(param);
+	    /************************ 2020.08.24 정대현 수정 **********************/
 
 	}
 
@@ -89,6 +86,17 @@ public class StatementApplicationServiceImpl implements StatementApplicationServ
 		 
 	    }
 
-	
+///////////////////////// 2020-08-24 김진호  수정///////////////////////////
+@Override
+public ArrayList<DetailTrialBalanceBean> getDetailTrialBalance(String fromDate, String toDate) {
+System.out.println("일(월)계표 fromDate : "+fromDate);
+System.out.println("일(월)계표 toDate : "+toDate);
+HashMap<String, String> param =new HashMap<>();
+param.put("fromDate", fromDate);
+param.put("toDate", toDate);
+return detailTrialBalanceDAO.selectDetailTrialBalance(param);
+
+}
+///////////////////////// 2020-08-24 김진호  끝///////////////////////////
 	
 }

@@ -2,6 +2,7 @@ package kr.co.seoulit.erp.acc.account.base.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.seoulit.erp.acc.account.base.serviceFacade.AccountServiceFacade;
 import kr.co.seoulit.erp.acc.account.base.to.AccountBean;
+import kr.co.seoulit.erp.acc.account.base.to.AccountCodeBean;
 
 @CrossOrigin("*")
 @RestController
@@ -20,6 +22,11 @@ public class AccountController{
    @Autowired
 	private AccountServiceFacade accountServiceFacade;
 
+   @RequestMapping(value="/base/getAccountList")
+	public List<AccountCodeBean> getAccountList() {
+				
+		return accountServiceFacade.getAccountList();
+	}
    @RequestMapping(value="/account/getAccount", method=RequestMethod.GET)
 	public HashMap<String, Object> getAccount(@RequestParam("accountCode") String accountCode){
 	   HashMap<String, Object> map=new HashMap<>();
@@ -28,14 +35,14 @@ public class AccountController{
         map.put("account", accountBean);
         map.put("errorCode",0);
         map.put("errorMsg","등록완료");
-        
+         
     }catch (Exception e2) {
     	map.put("errorCode", -1);
     	map.put("errorMsg", e2.getMessage());
     }
 	   return map;
    }
-   @RequestMapping(value="/account/getAccountListByName", method=RequestMethod.GET)
+   @RequestMapping(value="/account/getAccountListByName")
     public HashMap<String, Object> getAccountListByName(@RequestParam("accountName") String accountName) {
  
        HashMap<String, Object> map=new HashMap<>();

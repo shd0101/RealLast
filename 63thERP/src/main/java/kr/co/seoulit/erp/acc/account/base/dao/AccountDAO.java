@@ -1,10 +1,12 @@
 package kr.co.seoulit.erp.acc.account.base.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.seoulit.erp.acc.account.base.to.AccountBean;
+import kr.co.seoulit.erp.acc.account.base.to.AccountCodeBean;
 import kr.co.seoulit.erp.acc.account.base.to.AccountControlBean;
 
 @Mapper
@@ -23,4 +25,6 @@ public interface AccountDAO {
     ArrayList<AccountBean> selectAccountListByName(String accountName);
 
     ArrayList<AccountControlBean> selectAccountControlList(String accountCode);
+
+	public List<AccountCodeBean> getAccountList();
 }

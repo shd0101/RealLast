@@ -1,3 +1,4 @@
+//hoxy ㅁㄴㅇㄹㄴㅁㅇㄹㄴㅁㅇㄹfxxking
 package kr.co.seoulit.erp.logi.logistics.production.controller;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class MpsController {
 	
 	private ModelMap modelMap = new ModelMap();
 
+	//2020-08-24 진형욱 메서드 수정::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	@RequestMapping("/searchMpsInfo.do")
 	public ModelMap searchMpsInfo(HttpServletRequest request, HttpServletResponse response) {
 
@@ -34,6 +36,9 @@ public class MpsController {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String includeMrpApply = request.getParameter("includeMrpApply"); 
+		System.out.println("넘어온 시작날짜::::::::"+startDate);
+		System.out.println("넘어온 종료날짜::::::::"+endDate);
+		System.out.println("넘어온 ???::::::::"+includeMrpApply);
 
 		try {
 
@@ -41,7 +46,7 @@ public class MpsController {
 
 			modelMap.put("gridRowJson", mpsTOList);
 			modelMap.put("errorCode", 1);
-			modelMap.put("errorMsg", "성공");
+			modelMap.put("errorMsg", "�꽦怨�");
 
 		} catch (Exception e2) {
 			e2.printStackTrace();
@@ -67,7 +72,7 @@ public class MpsController {
 													   //contractDate, 2019-07-01, 2019-07-31
 			modelMap.put("gridRowJson", contractDetailInMpsAvailableList);
 			modelMap.put("errorCode", 1);
-			modelMap.put("errorMsg", "성공");
+			modelMap.put("errorMsg", "�꽦怨�");
 
 		} catch (Exception e2) {
 			e2.printStackTrace();
@@ -92,7 +97,7 @@ public class MpsController {
 
 			modelMap.put("gridRowJson", salesPlanInMpsAvailableList);
 			modelMap.put("errorCode", 1);
-			modelMap.put("errorMsg", "성공");
+			modelMap.put("errorMsg", "�꽦怨�");
 
 		} catch (Exception e2) {
 			e2.printStackTrace();
@@ -118,7 +123,7 @@ public class MpsController {
 //
 //			modelMap.put("result", resultMap);
 			modelMap.put("errorCode", 1);
-			modelMap.put("errorMsg", "성공");
+			modelMap.put("errorMsg", "�꽦怨�");
 
 		} catch (Exception e2) {
 			e2.printStackTrace();
@@ -144,7 +149,7 @@ public class MpsController {
 //
 //			modelMap.put("result", resultMap);
 			modelMap.put("errorCode", 1);
-			modelMap.put("errorMsg", "성공");
+			modelMap.put("errorMsg", "�꽦怨�");
 
 		} catch (Exception e2) {
 			e2.printStackTrace();

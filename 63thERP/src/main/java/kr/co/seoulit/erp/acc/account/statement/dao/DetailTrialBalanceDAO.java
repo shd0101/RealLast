@@ -1,6 +1,7 @@
 package kr.co.seoulit.erp.acc.account.statement.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,6 +10,9 @@ import kr.co.seoulit.erp.acc.account.statement.to.DetailTrialBalanceBean;
 
 @Mapper
 public interface DetailTrialBalanceDAO {
-    public ArrayList<DetailTrialBalanceBean> selectDetailTrialBalance(String fromDate, String toDate);
+
+///////////////////////// 2020-08-24 김진호  수정///////////////////////////   
+   ArrayList<DetailTrialBalanceBean> selectDetailTrialBalance(HashMap<String, String> param);
+///////////////////////// 2020-08-24 김진호  끝///////////////////////////    
 
 }
