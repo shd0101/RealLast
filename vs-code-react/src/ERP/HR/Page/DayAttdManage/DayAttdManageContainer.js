@@ -1,11 +1,11 @@
 import React from 'react';
 import DayAttdManage from './DayAttdManage';
 import { connect } from 'react-redux';
-import { SearchDayAttdListRequest, updateDayAttdList, searchMonthAttdMgtList } from 'ERP/HR/Action/Action';
+import { SearchDayAttdListRequest, updateDayAttdList } from 'ERP/HR/Action/Action';
 import { withRouter } from "react-router-dom";
 
 const DayAttdManagerContainer = (props) => {
-    const { dayAttdMgtList,monthAttdMgtList, SearchDayAttdListRequest, updateDayAttdList, errorCode, errorMsg, searchMonthAttdMgtList }=props;
+    const { dayAttdMgtList, SearchDayAttdListRequest, updateDayAttdList, errorCode, errorMsg }=props;
 
     const searchDayAttd= (searchDate) => {
         SearchDayAttdListRequest({ cday:searchDate });
@@ -14,10 +14,8 @@ const DayAttdManagerContainer = (props) => {
         <div>
         <DayAttdManage 
             searchDayAttd={searchDayAttd}
-            searchMonthAttdMgtList={searchMonthAttdMgtList}
             updateDayAttdList={updateDayAttdList}
-            dayAttdMgtList={dayAttdMgtList}
-            monthAttdMgtList={monthAttdMgtList}      
+            dayAttdMgtList={dayAttdMgtList}  
             errorCode={errorCode}
             errorMsg={errorMsg}
         />
@@ -31,8 +29,7 @@ const mapStateToProps=(state) =>{
         errorCode: state.HrReducer.errorCode,
         errorMsg: state.HrReducer.errorMsg,
         dayAttdMgtList: state.HrReducer.dayAttdMgtList,
-        monthAttdMgtList: state.HrReducer.monthAttdMgtList,
     };
 }
 
-export default connect(mapStateToProps,{searchMonthAttdMgtList, SearchDayAttdListRequest, updateDayAttdList })(withRouter(DayAttdManagerContainer));
+export default connect(mapStateToProps,{SearchDayAttdListRequest, updateDayAttdList })(withRouter(DayAttdManagerContainer));

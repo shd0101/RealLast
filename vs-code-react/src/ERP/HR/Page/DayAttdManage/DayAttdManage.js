@@ -4,19 +4,17 @@ import "./DayAttdManage.css";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Typography, AppBar, Toolbar } from "@material-ui/core"
+import Axios from "axios";
 
-const DayAttdManage = ({ searchDayAttd, monthAttdMgtList, searchMonthAttdMgtList, dayAttdMgtList, updateDayAttdList, errorCode, errorMsg }) => {
+const DayAttdManage = ({ searchDayAttd, searchMonthAttdMgtList, dayAttdMgtList, updateDayAttdList, errorCode, errorMsg }) => {
 
   const [date, setDate] = useState('');
-
-  const [monthCheck, setMonthCheck] = useState(false);
   
   const onChange = useCallback((e) => {
     setDate((e.target.value).toString());
   }, []);
 
   const search = () => {
-    console.log("zzzzzzzzzzzzz"+date);
     searchDayAttd(date);
   };
 
@@ -31,28 +29,41 @@ const DayAttdManage = ({ searchDayAttd, monthAttdMgtList, searchMonthAttdMgtList
 					+ str.substring(regexIndexOf + regex.toString().length);
 		}
   }
-  
-  const monthList = useCallback((dayAttdMonthData) => {
-    searchMonthAttdMgtList({cday:dayAttdMonthData});   
-    setMonthCheck(true);
-    console.log("ddddddddddddddddddddddddddddddddddddddddddddddddddddd"+monthCheck);
-  },[monthAttdMgtList]);
 
-  //마감이벤트
-  const finalize = (e) => {
+  //이미 만들어져 있는 사가를 이용해서 처리하고 싶었지만 비동기처리를 피하기 위해 함수를 나눔
+  const monthList = (e) => {
+  //버튼ID값을 넘겨주기 위함
+  let buttonId = e.currentTarget.id;
   //일근태 마감 전 월근태 마감 여부 검사
   //월근태 조회 조건을 맞추기 위한 작업 ex)2020-08-20 => 2020-8 
-    let dayAttdMonthData = date.substring(0, date.lastIndexOf("-"));
-    if (date.substring(5, 6) === '0'){
-    dayAttdMonthData = replaceLast(dayAttdMonthData, 0, "");
+  let dayAttdMonthData = date.substring(0, date.lastIndexOf("-"));
+
+  if (date.substring(5, 6) === '0'){
+  dayAttdMonthData = replaceLast(dayAttdMonthData, 0, "");
+  }
+
+   Axios.get("http://localhost:8282/hr/insa/attendance/monthAttendanceManage.do",{         
+      params:{ 
+        applyYearMonth: dayAttdMonthData,
+      }
+    }).then(response => {
+    //실제 마감이벤트 호출
+     finalize(response, buttonId, dayAttdMonthData)
+    })
+    .catch(err => {
+      console.log(err)
+    });
+}
+  
+  //마감이벤트
+  const finalize = (response, buttonId, dayAttdMonthData) => {
+
+    const monthAttd = response.data.monthAttdMgtList;
+
+    if(monthAttd[0].finalizeStatus==='Y'){
+      alert('월 근태 마감을 확인해 주세요');
+      return;
     }
-
-    //월근태조회 디스패치
-    
-    monthList(dayAttdMonthData);
-
-    console.log("ddddddddddddddddddddd"+JSON.stringify(monthAttdMgtList))
-
     const dayAttd = dayAttdMgtList;
     
     for(let i=0; i<dayAttd.length; i++){ 
@@ -60,7 +71,7 @@ const DayAttdManage = ({ searchDayAttd, monthAttdMgtList, searchMonthAttdMgtList
      delete dayAttd[i].errorMsg
      delete dayAttd[i].chk    
      //전체마감
-     if(e.currentTarget.id === 'update'){
+     if(buttonId === 'update'){
       if(dayAttd[i].finalizeStatus === 'Y'){
         alert('이미 마감처리 되었습니다.');
         return;
@@ -73,11 +84,9 @@ const DayAttdManage = ({ searchDayAttd, monthAttdMgtList, searchMonthAttdMgtList
       } 
       dayAttd[i].status='cancel'
     }
-  }
-  
+  }  
     console.log("update-view"+JSON.stringify(dayAttd));
-
-    if(monthCheck){
+   
     updateDayAttdList({dayAttdMgtList:dayAttd, cday:dayAttdMonthData})
     if(!!errorMsg){
       alert(errorMsg);
@@ -85,8 +94,6 @@ const DayAttdManage = ({ searchDayAttd, monthAttdMgtList, searchMonthAttdMgtList
     if(!!dayAttdMgtList){
       alert('요청하신 처리가 완료 되었습니다.');
     }
-    setMonthCheck(false);
-  }
   };
 
     return (
@@ -117,10 +124,10 @@ const DayAttdManage = ({ searchDayAttd, monthAttdMgtList, searchMonthAttdMgtList
        <Button variant="contained" color="primary" onClick={search}>
           조회하기
         </Button> 
-        <Button id="update" variant="contained" color="primary" onClick={finalize}>
+        <Button id="update" variant="contained" color="primary" onClick={monthList}>
          전체마감하기
         </Button>
-        <Button id="cancel" variant="contained" color="primary" onClick={finalize}>
+        <Button id="cancel" variant="contained" color="primary" onClick={monthList}>
          전체마감취소
         </Button>
         </div>
