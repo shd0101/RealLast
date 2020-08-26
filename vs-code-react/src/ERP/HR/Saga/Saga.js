@@ -107,14 +107,16 @@ function* salaryListSaga(action) {
   }
 }
 
+
+//**************************************************08-26 손유찬 시작******************************************************* */
 function* closeSalary(action) {
   try {
     yield axios({
       headers: { "Content-Type": "application/json" },
       method: "post",
-      url: "http://localhost:8282/hr/salary/modifyMonthSalary",
+      url: "http://localhost:8282/hr/salary/modifyMonthSalary.do",
       data: {
-        empcode1: action.payload,
+        empcode1: action.payload.empcode1,
       },
     });
     yield put(closeSalaryWithSlipSuccess());
@@ -122,6 +124,11 @@ function* closeSalary(action) {
     yield put(closeSalaryWithSlipFailure(e));
   }
 }
+
+//**************************************************08-26 손유찬 종료******************************************************* */
+
+
+
 ////////////////////          지원 사가 종료                 /////////////////////////////////////////////
 
 //===========================재영 월근태관리=======================//
