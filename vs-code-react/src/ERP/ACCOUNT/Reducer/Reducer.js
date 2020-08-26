@@ -12,6 +12,9 @@ const initialState = {
   error: "",
   periodNo: "",
   slipNo: "",
+  cashJournalList: [], //********************************** 2020-08-24 정대현 추가 **********************************
+  detailTrialBalanceList: [], //********************************** 2020-08-24 김진호 추가 **********************************
+  gridRowJson: [], //********************************** 2020-08-24 조편백 추가 **********************************
 };
 
 const AccReducer = (state = initialState, action) => {
@@ -56,7 +59,7 @@ const AccReducer = (state = initialState, action) => {
     case types.SEARCH_ACCOUNT_SUCCESS:
       return {
         ...state,
-        accountList: action.data.accountList,
+        accountList: action.data,
       };
     case types.SEARCH_ACCOUNT_FAILURE:
       return {
@@ -87,26 +90,26 @@ const AccReducer = (state = initialState, action) => {
         ...state,
         error: action.error,
       };
-    
+
     //전표승인 전표조회
     case types.SEARCH_AM_SLIP_SUCCESS:
-        return {
-          ...state,
-          approvalSlipList: action.data,
-        };
+      return {
+        ...state,
+        approvalSlipList: action.data,
+      };
     case types.SEARCH_AM_SLIP_FAILURE:
-        return {
+      return {
         ...state,
         error: action.error,
       };
-      //전표승인 분개조회
+    //전표승인 분개조회
     case types.SEARCH_AM_JOURNAL_SUCCESS:
-        return {
-          ...state,
-          approvalJournalList: action.data.journalList,
-        };
+      return {
+        ...state,
+        approvalJournalList: action.data.journalList,
+      };
     case types.SEARCH_AM_JOURNAL_FAILURE:
-        return {
+      return {
         ...state,
         error: action.error,
       };
@@ -162,6 +165,51 @@ const AccReducer = (state = initialState, action) => {
         ...state,
         error: action.error,
       };
+    //================================ 2020-08-24 손익계산서조회 조편백 ====================================
+    case types.SEARCH_INCOME_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case types.SEARCH_INCOME_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        data: action.data.gridRowJson,
+      };
+    case types.SEARCH_INCOME_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      };
+    //================================ 2020-08-24 손익계산서조회 끝 조편백 ====================================
+    //********************************** 2020-08-24 정대현 추가 **********************************
+    // 현금출납장 조회
+    case types.SEARCH_CASHJOURNAL_SUCCESS:
+      return {
+        ...state,
+        cashJournalList: action.data,
+      };
+    case types.SEARCH_CASHJOURNAL_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+      };
+    //********************************** 2020-08-24 정대현 추가 여기까지**********************************
+    //********************************** 2020-08-24 김진호 추가 **********************************
+    //일(월)계표
+    case types.SEARCH_DETAILTRIAL_SUCCESS:
+      return {
+        ...state,
+        detailTrialBalanceList: action.data,
+      };
+    case types.SEARCH_DETAILTRIAL_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+      };
+    //********************************** 2020-08-24 김진호 끝 **********************************
     default:
       return { ...state };
   }
