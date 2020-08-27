@@ -14,6 +14,8 @@ import kr.co.seoulit.erp.hr.base.to.DeptTO;
 import kr.co.seoulit.erp.hr.emp.applicationService.EmpApplicationService;
 
 import kr.co.seoulit.erp.hr.emp.to.EmpTO;
+import kr.co.seoulit.erp.hr.emp.to.EmployeeBasicTO;
+import kr.co.seoulit.erp.hr.emp.to.RegistEMPTO;
 
 
 @Service
@@ -36,7 +38,7 @@ public class EmpServiceFacadeImpl implements EmpServiceFacade {
    }
 
 	@Override
-	public void registEmployee(HashMap<String, String> emp) {
+	public void registEmployee(RegistEMPTO emp) {
 		empApplicationService.registEmployee(emp);	
 	}
 

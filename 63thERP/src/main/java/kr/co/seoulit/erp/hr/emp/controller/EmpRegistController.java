@@ -1,7 +1,10 @@
 package kr.co.seoulit.erp.hr.emp.controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +13,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import kr.co.seoulit.erp.hr.emp.sf.EmpServiceFacade;
+import kr.co.seoulit.erp.hr.emp.to.EmployeeBasicTO;
+import kr.co.seoulit.erp.hr.emp.to.RegistEMPTO;
 
 @CrossOrigin("*")
 @RestController
@@ -24,16 +32,22 @@ public class EmpRegistController{
 	@Autowired
 	private EmpServiceFacade empServiceFacade;
 	private ModelAndView modelAndView = null;
-	private ModelMap modelMap = new ModelMap();
+	private ModelMap modelMap = null;
 	
 	
-	
+	//******************************************************08-26 손유찬 **************************************************** */
+
 	
 	@RequestMapping(value="registEmployee.do",method=RequestMethod.POST)
-	public ModelAndView registEmployee(@RequestBody HashMap<String,Object> insertEmp) {
+	public ModelMap registEmployee(@RequestParam("data") String sendData) {
 		try {
-			System.out.println("AAA");
-			HashMap<String,String> emp=(HashMap<String,String>)insertEmp.get("insertEmp");
+//HashMap<String , ArrayList<RegistEMPTO>>
+			System.out.println("사원등록 데이타"+sendData);
+			modelMap=new ModelMap();
+			
+			Gson gson = new Gson();
+			RegistEMPTO emp = gson.fromJson(sendData, new TypeToken<RegistEMPTO>(){}.getType());	
+			System.out.println("지손 데이타"+emp);
 			empServiceFacade.registEmployee(emp);		
 			modelMap.put("errorMsg","사원이 등록되었습니다.");
 			modelMap.put("errorCode", 0);
@@ -41,11 +55,10 @@ public class EmpRegistController{
 			modelMap.put("errorMsg", "사원 등록에 실패했습니다 : "+dae.getMessage());
 			modelMap.put("errorCode", -1);
 		}
-		modelAndView = new ModelAndView("jsonView", modelMap);
-		return modelAndView;
+		return modelMap;
 	}
-	
-	
+	//******************************************************08-26 손유찬 **************************************************** */
+
 	
 	public ModelAndView findLastEmpCode(HttpServletRequest request, HttpServletResponse response){
 		try {

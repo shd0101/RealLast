@@ -20,8 +20,10 @@ import kr.co.seoulit.erp.hr.emp.dao.WorkInfoDAO;
 import kr.co.seoulit.erp.hr.emp.to.CareerInfoTO;
 import kr.co.seoulit.erp.hr.emp.to.EducationInfoTO;
 import kr.co.seoulit.erp.hr.emp.to.EmpTO;
+import kr.co.seoulit.erp.hr.emp.to.EmployeeBasicTO;
 import kr.co.seoulit.erp.hr.emp.to.FamilyInfoTO;
 import kr.co.seoulit.erp.hr.emp.to.LicenseInfoTO;
+import kr.co.seoulit.erp.hr.emp.to.RegistEMPTO;
 import kr.co.seoulit.erp.hr.emp.to.WorkInfoTO;
 import kr.co.seoulit.erp.hr.salary.applicationService.SalaryApplicationService;
 
@@ -61,9 +63,10 @@ public class EmpApplicationServiceImpl implements EmpApplicationService {
    }
 
    @Override
-	public void registEmployee(HashMap<String, String> emp) {	
-		
+	public void registEmployee(RegistEMPTO emp) {	
+		System.out.println("프로시저 호출 시작 "+emp);
 		empDAO.registEmployee(emp);
+		System.out.println("프로시저 호출 끝 ");
 		//baseApplicationService.registEmpCode(emp);			
 	}
 

@@ -1,4 +1,7 @@
+<!-- //******************************************************08-26 손유찬 **************************************************** */ -->
+
 import React, { useState, useCallback, useEffect } from "react";
+import axios from "axios";
 import {
   FormLabel,
   Input,
@@ -79,6 +82,7 @@ const EmpRegist = () => {
   const [authorityCode, setAuthorityCode] = useState("");
   const dispatch = useDispatch();
   const { workPlace, departmentList } = useSelector(state => state.HrReducer);
+  let data= [];
 
   useEffect(() => {
     dispatch({
@@ -125,7 +129,7 @@ const EmpRegist = () => {
     console.log("HIREDATE : " + selectedDate);
     console.log("GENDER : " + gender);
     console.log("AC : " + authorityCode);
-    const data = {
+    data = {
       companyCode: "COM-01",
       userPassword: password,
       updateDate: "",
@@ -150,8 +154,14 @@ const EmpRegist = () => {
       gender: gender,
       authorityCode: authorityCode,
     };
-    dispatch({ type: EMP_REGISTER_REQUEST, data: data });
+
+    console.log("온서브밋 이벤트 작동"+ Object.keys(data));
+    dispatch({ type: EMP_REGISTER_REQUEST, data: data});
+    
   };
+
+//******************************************************08-26 손유찬 **************************************************** */
+
 
   const onChangeWorkplace = e => {
     setWorkplace(e.target.value);

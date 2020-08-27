@@ -7,6 +7,8 @@ import java.util.Map;
 import kr.co.seoulit.erp.hr.base.to.DeptTO;
 /*import kr.co.seoulit.erp.hr.emp.dao.object;*/
 import kr.co.seoulit.erp.hr.emp.to.EmpTO;
+import kr.co.seoulit.erp.hr.emp.to.EmployeeBasicTO;
+import kr.co.seoulit.erp.hr.emp.to.RegistEMPTO;
 import kr.co.seoulit.erp.hr.salary.to.BaseSalaryTO;
 
 public interface EmpApplicationService {
@@ -14,7 +16,7 @@ public interface EmpApplicationService {
    public String findLastEmpCode();
    
    public ArrayList<EmpTO> findEmployeeListByDept(String deptName);
-   public void registEmployee(HashMap<String,String> emp);
+   public void registEmployee(RegistEMPTO emp);
 
    /* public void modifyEmployee(EmpTO emp); */
    public void deleteEmpList(ArrayList<EmpTO> empList);
