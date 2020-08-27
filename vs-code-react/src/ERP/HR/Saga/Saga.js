@@ -255,53 +255,52 @@ function* divisionSaga(action) {
   }
 }
 
+//**************************************************08-26 손유찬 시작******************************************************* */
 function* registerEmp(action) {
   try {
-    if (action.type === types.EMP_REGISTER_REQUEST) {
-      yield call(() =>
-        axios.post(
-          "http://localhost:8282/hr/registEmployee.do",
-          { insertEmp: action.data },
-          { headers: { "Content-Type": "application/json" } },
-        ),
-      );
-    }
-  } catch (e) {
-    console.log(e.response);
-    yield put({ type: types.EMP_REGISTER_FAILURE });
-  }
-}
-//===========================================사원등록 성훈 종료=======================================//
+    console.log("사가에서 찍어보는 "+action.data);
 
-//=========================================일근태 관리 원구 시작====================================//
-function* DayAttdSaga(action) {
-  try {
-    if (action.payload.type === "insert") {
       yield axios({
         method: "post",
         headers: {
           "Content-Type": "application/json",
         },
-        url: "http://localhost:8282/hr/insa/attendance/dayAttendance",
-        data: action.payload.dayAttd,
+        url:  "http://localhost:8282/hr/registEmployee.do",
+        params : {data: action.data},
       })
-        .then(response => {})
-        .catch(e => {
-          alert(e);
-        });
+      
+  } catch (e) {
+    console.log(e.response);
+    yield put({ type: types.EMP_REGISTER_FAILURE });
+  }
+}
+//**************************************************08-26 손유찬 종료******************************************************* */
+
+//=========================================재영 2020-08-27 일근태 기록 시작====================================//
+function* DayAttdSaga(action) {
+  try {
+    if (action.type === types.INSERT_DAY_ATTD_START) {
+      yield axios.post(
+       `http://localhost:8282/hr/insa/attendance/dayAttendance`,{
+        empCode: action.payload.empCode,
+        applyDay: action.payload.applyDay,
+        attdType: action.payload.attdType,
+        attdTypeName: action.payload.attdTypeName,
+        time: action.payload.time,  
+      })
       yield put(actions.insertDayAttdSuccess());
     }
   } catch (error) {
     yield put(actions.insertDayAttdFailure(error.message));
   }
 }
+//=========================================재영 2020-08-27 일근태 기록 종료====================================//
 
-
-//**************************************2020-08-25 손유찬 월마감 사가**************************************************
+//**************************************2020-08-27 재영 일근태조회 사가**************************************************
 function* DayAttdSSaga(action) {
   console.log("DayAttdSSaga 발동2");
   try {
-    if (action.payload.type === "select") {
+    if (action.type === types.SELECT_DAY_ATTD_START) {
       const { data } = yield axios.get(
         "http://localhost:8282/hr/insa/attendance/dayAttendance",
         {
@@ -317,7 +316,7 @@ function* DayAttdSSaga(action) {
     yield put(actions.selectDayAttdFailure(error.message));
   }
 }
-//**************************************2020-08-25 손유찬 월마감 사가**************************************************
+//**************************************2020-08-27 재영 일근태조회 사가**************************************************
 
 
 //=================================일근태 관리 원구 종료 ======================================//
@@ -352,6 +351,36 @@ function* restAttdSaga(action) {
   }
 }
 // *********************** 외출 조퇴 신청 종료 _준서 ***********************
+
+// *********************** 결재승인관리 시작 _준서 ***********************
+function* attdApplSaga(action) {
+  console.log("HR Saga Func_attdApplSaga")
+  console.log(action);
+  try {
+    const { data } = yield axios({
+      method: "post",
+      url: "http://localhost:8282/hr/attendance/attendanceApploval.do",
+      params: {
+          empCode: action.data.empCode,          
+          requestDate: action.data.requestDate,          
+          applovalStatus: action.data.applovalStatus,
+          rejectCause: action.data.rejectCause
+      },
+    })
+    .then(function(response) { alert("결재완료"); })
+    .catch(function(error) { alert("결재실패") });
+    yield put(restAttdSuccess(data));
+  } catch (e) {
+    yield put(restAttdFailure(e.message));
+  }
+}
+// *********************** 결재승인관리 종료 _준서 ***********************
+
+// *********************** 결재승인관리 시작 _준서 ***********************
+export function* onAttdApplSaga(){
+  yield takeLatest(types.UPDATE_ATTD_APPL_REQUEST, attdApplSaga);
+}
+// *********************** 결재승인관리 종료 _준서 ***********************
 
 // *********************** 외출 조퇴 신청 시작 _준서 ***********************
 export function* onRestAttdSaga(){
@@ -425,6 +454,7 @@ export default function* HrSaga() {
     call(onEmpUpdateRequest), //유주
     call(onInsertDayAttd), // 원구
     call(onSelectDayAttd), // 원구
-    call(onRestAttdSaga)    // 준서
+    call(onRestAttdSaga),    // 준서
+    call(onAttdApplSaga)    // 준서
   ]);
 }

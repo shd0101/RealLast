@@ -33,6 +33,7 @@ const HrReducer = (state = initialState, action) => {
     case types.INSERT_DAY_ATTD_SUCCESS:
       return {
         ...state,
+        attdData:[],
       };
     case types.INSERT_DAY_ATTD_FAILURE:
       return {
@@ -143,6 +144,19 @@ const HrReducer = (state = initialState, action) => {
       ...state
     };
 //*************************외출 및 조퇴 신청 종료 _준서 _20.08.25 *************************
+
+ //************************* 결제승인관리 시작 _준서 *************************
+ case types.SEARCH_ATTD_APPL_SUCCESS:
+    return {
+      ...state,
+      searchAttdApplList: action.data.searchAttdApplList,
+  };
+  case types.UPDATE_ATTD_APPL_SUCCESS:
+    return {
+      ...state,
+      updateAttdApplList: [],
+  };
+ //************************* 결제승인관리 종료 _준서 *************************
 
  //===================인봉=====================================일근태관리//===================인봉=====================================일근태관리
     case types.SEARCH_DAY_ATTD_LIST_All:

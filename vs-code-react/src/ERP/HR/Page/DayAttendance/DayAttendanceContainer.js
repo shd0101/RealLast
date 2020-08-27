@@ -1,62 +1,37 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { insertDayAttdStart, selectDayAttdStart } from "ERP/HR/Action/Action";
-import All from "./All";
+import DayAttdGrid from "./DayAttdGrid";
 import moment from "moment";
 import { Button } from "@material-ui/core";
-const Container = ({ insertDayAttdStart, selectDayAttdStart, attdData }) => {
-  const empcode = sessionStorage.getItem("empCodeInfo_token");
-  //오늘 날짜
-  let today = moment().format("YYYY-MM-DD");
-  let thisTime = moment().format("hh:mm");
-  const [applyDay, setApplyDay] = useState(today);
-  const [time, setTime] = useState(""); // 시간
-  const [attdType, setAttdType] = useState(""); // 근태구분 boolean
-  const [attdTypeCode, setAttdTypeCode] = useState(""); // 근태구분 boolean
-  const dayAttd = {
-    empCode: empcode,
-    applyDay: applyDay,
-    attdTypeCode: attdTypeCode,
-    attdTypeName: attdType,
-    time: time,
-  };
-  const handleDayAttd = () => {
-    console.log("handleDayAttd");
-    console.log(time);
-    insertDayAttdStart({ type: "insert", dayAttd: dayAttd });
+
+//===========================재영 20-08-27======================//
+const Container = ({ insertDayAttdStart, selectDayAttdStart, attdData, time }) => {
+
+  const handleInsertDayAttd = (empCode, applyDay, attdType, attdTypeName, time) => {
+    console.log("컨테이너데이터ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+empCode, applyDay, attdType, attdTypeName, time)
+    insertDayAttdStart({
+      empCode: empCode,
+      applyDay: applyDay,
+      attdType: attdType,
+      attdTypeName: attdTypeName,
+      time: time,      
+    })
+  }
+  const handleDayAttd = (applyDay, empCode) => {
     selectDayAttdStart({
-      type: "select",
-      empCode: empcode,
+      empCode: empCode,
       applyDay: applyDay,
     });
   };
 
   return (
-    <div>
-      <Button
-        onClick={() => {
-          console.log("==today==" + today);
-          console.log(today);
-          console.log("==thisTime==" + thisTime);
-          console.log(thisTime);
-          console.log("==empcode==" + empcode);
-          console.log(empcode);
-        }}
-      >
-        확인용용
-      </Button>
-      <All
-        today={today}
-        empcode={empcode}
-        setTime={setTime}
-        setAttdType={setAttdType}
-        setAttdTypeCode={setAttdTypeCode}
-        setApplyDay={setApplyDay}
+    <div>     
+      <DayAttdGrid
         handleDayAttd={handleDayAttd}
-        thisTime={thisTime}
+        handleInsertDayAttd={handleInsertDayAttd}
         attdData={attdData}
-        attdType={attdType}
-      ></All>
+      ></DayAttdGrid>
     </div>
   );
 };

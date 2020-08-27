@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
-import { useSelector } from "react-redux";
 import "./Grid.css"
+
+//==========================재영 일근태관리 그리드=======================//
 
 const Grid = ({ data, state }) => {
   //console.log(JSON.stringify(data) + "1111111111111");
   // prop 값을 사용하기 편하게 비구조 할당
-  const { isLoading } = useSelector(state => state.AccReducer);
   
   const Grid = [
     // 칼럼정의
@@ -94,7 +94,7 @@ const Grid = ({ data, state }) => {
         }}
         cellStyle={{ textAlign: "center" }}
       >
-        {!isLoading ? (
+        
           <AgGridReact
             columnDefs={Grid}
             rowData={data}            
@@ -113,12 +113,9 @@ const Grid = ({ data, state }) => {
             // onGridReady={onGridReady}
             // onCellClicked={onCellClicked}
           />
-        ) : (
-          <h1 align="center">로딩중</h1>
-        )}
       </div>
     </>
-  );
+  )
 };
 
 export default Grid;

@@ -94,7 +94,7 @@ export const EMP_REGISTER_FAILURE = "src/ERP/HR/Saga/Saga/EMP_REGISTER_FAILURE";
 //============================== 사원 등록 성훈 종료===============================================//
 
 
-//============================== 일근태등록 원구 시작===============================================//
+//============================== 일근태 기록/조회 재영 시작 20.08.27===============================================//
 export const INSERT_DAY_ATTD_START =
   "src/ERP/HR/Saga/Saga/INSERT_DAY_ATTD_START";
 export const INSERT_DAY_ATTD_SUCCESS =
@@ -106,12 +106,20 @@ export const SELECT_DAY_ATTD_START =
 export const SELECT_DAY_ATTD_SUCCESS =
   "src/ERP/HR/Saga/Saga/SELECT_DAY_ATTD_SUCCESS";
 export const SELECT_DAY_ATTD_FAILURE =
-  "src/ERP/HR/Saga/Saga/SELECT_DAY_ATTD_FAILURE";
-  
-//============================== 일근태등록 원구 시작===============================================//
+  "src/ERP/HR/Saga/Saga/SELECT_DAY_ATTD_FAILURE";  
+//============================== 일근태 기록/조회 재영 종료 20.08.27===============================================//
 
 //*************************외출 및 조퇴 신청 시작 _준서 _20.08.24 *************************
 export const REST_ATTD_REQUEST = "src/ERP/HR/Saga/Saga/REST_ATTD_REQUEST";
 export const REST_ATTD_SUCCESS = "src/ERP/HR/Saga/Saga/REST_ATTD_SUCCESS";
 export const REST_ATTD_FAILURE = "src/ERP/HR/Saga/Saga/REST_ATTD_FAILURE";
 //*************************외출 및 조퇴 신청 종료 _준서 _20.08.24 *************************
+
+//************************* 결제승인관리 시작 _준서 *************************
+export const SEARCH_ATTD_APPL_REQUEST = "src/ERP/HR/Saga/Saga/SEARCH_ATTD_APPL_REQUEST";
+export const UPDATE_ATTD_APPL_REQUEST = "src/ERP/HR/Saga/Saga/UPDATE_ATTD_APPL_REQUEST";
+export const SEARCH_ATTD_APPL_SUCCESS = "src/ERP/HR/Saga/Saga/SEARCH_ATTD_APPL_SUCCESS";
+export const SEARCH_ATTD_APPL_FAILURE = "src/ERP/HR/Saga/Saga/SEARCH_ATTD_APPL_FAILURE";
+export const UPDATE_ATTD_APPL_SUCCESS = "src/ERP/HR/Saga/Saga/UPDATE_ATTD_APPL_SUCCESS";
+export const UPDATE_ATTD_APPL_FAILURE = "src/ERP/HR/Saga/Saga/UPDATE_ATTD_APPL_FAILURE";
+//************************* 결제승인관리 종료 _준서 *************************

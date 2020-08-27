@@ -29,8 +29,10 @@ public class DayAttdController{
 	private AttdServiceFacade attdServiceFacade;
 	
 	@RequestMapping(value="/attendance/dayAttendance", method=RequestMethod.GET)
-	public HashMap<String,Object> findDayAttdList(@Param("empCode") String empCode, @Param("applyDay") String applyDay){
+	public HashMap<String,Object> findDayAttdList(@RequestParam("applyDay")String applyDay,@RequestParam("empCode")String empCode){
 		HashMap<String, Object> model=new HashMap<>();
+		
+		System.out.println(empCode);
 		
 		model.put("DayAttdTO", attdServiceFacade.findDayAttdList(empCode, applyDay));
 		return model;
@@ -38,10 +40,18 @@ public class DayAttdController{
 
 
 	//@RequestMapping(value="insa/attendance/dayAttendance", method=RequestMethod.POST)
-	@PostMapping(value="/attendance/dayAttendance")
-	public Map<String, Object> registDayAttd(@RequestBody DayAttdTO dayAttd){
+	@RequestMapping(value="/attendance/dayAttendance", method=RequestMethod.POST)
+	public Map<String, Object> registDayAttd(@RequestBody Map<String, String> dayAttdData){
 		//("sendData") String sendData
-		System.out.println("나와   "+dayAttd);
+		System.out.println("나와   "+dayAttdData);
+		DayAttdTO dayAttd = new DayAttdTO();
+		
+		dayAttd.setEmpCode(dayAttdData.get("empCode"));
+		dayAttd.setApplyDay(dayAttdData.get("applyDay"));
+		dayAttd.setAttdTypeCode(dayAttdData.get("attdType"));
+		dayAttd.setAttdTypeName(dayAttdData.get("attdTypeName"));
+		dayAttd.setTime(dayAttdData.get("time"));
+		
 		HashMap<String, Object> map=attdServiceFacade.registDayAttd(dayAttd);   
 	 System.out.println(map);
 		return map;

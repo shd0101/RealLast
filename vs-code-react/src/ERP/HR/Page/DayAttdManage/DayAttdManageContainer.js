@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { SearchDayAttdListRequest, updateDayAttdList } from 'ERP/HR/Action/Action';
 import { withRouter } from "react-router-dom";
 
+//======================재영 일근태관리 컨테이너======================//
+
 const DayAttdManagerContainer = (props) => {
     const { dayAttdMgtList, SearchDayAttdListRequest, updateDayAttdList, errorCode, errorMsg }=props;
 
