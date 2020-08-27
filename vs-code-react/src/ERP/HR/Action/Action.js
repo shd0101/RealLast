@@ -7,14 +7,16 @@ export const searchCode = createAction(types.SEARCH_CODE);
 export const searchCompanyCode = createAction(types.SEARCH_COMPANY_CODE);
 export const searchWorkPlaceCode = createAction(types.SEARCH_WORK_PLACE_CODE);
 
-
-
-export const insertDayAttdStart = createAction(types.INSERT_DAY_ATTD_START);
-export const insertDayAttdSuccess = createAction(types.INSERT_DAY_ATTD_SUCCESS);
-export const insertDayAttdFailure = createAction(types.INSERT_DAY_ATTD_FAILURE);
-export const selectDayAttdStart = createAction(types.SELECT_DAY_ATTD_START);
+//========================= 재영 일근태 조회/기록 2020-08-27 시작======================//
 export const selectDayAttdSuccess = createAction(types.SELECT_DAY_ATTD_SUCCESS);
 export const selectDayAttdFailure = createAction(types.SELECT_DAY_ATTD_FAILURE);
+export const insertDayAttdStart = createAction(types.INSERT_DAY_ATTD_START);
+export const insertDayAttdSuccess = createAction(types.INSERT_DAY_ATTD_SUCCESS);
+//========================= 재영 일근태 조회/기록 2020-08-27 종료======================//
+
+export const insertDayAttdFailure = createAction(types.INSERT_DAY_ATTD_FAILURE);
+export const selectDayAttdStart = createAction(types.SELECT_DAY_ATTD_START);
+
 //*************************  유주 담당  시작********************************** */
 export const PositionListRequest = createAction(types.POSITION_LIST_REQUEST); //유주 직급리스트를 가지고 옴(완성)
 export const PositionListSuccess = createAction(types.POSITION_LIST_SUCCESS);
@@ -40,6 +42,15 @@ export const monthAttdFailure = createAction(types.MONTH_ATTD_LIST_FAILURE);
 export const SearchDayAttdListRequest = createAction(types.SEARCH_DAY_ATTD_LIST_REQUEST);
 export const updateDayAttdList = createAction(types.DAY_ATTD_LIST_UPDATE);
 export const updateDayAttdListSuccess = createAction(types.DAY_ATTD_LIST_UPDATE_SEUCCESS);
+
+//************************* 결제승인관리 시작 _준서 *************************
+export const searchAttdApplList = createAction(types.SEARCH_ATTD_APPL_REQUEST);
+export const updateAttdApplList = createAction(types.UPDATE_ATTD_APPL_REQUEST);
+export const searchAttdApplSuccess =createAction(types.SEARCH_ATTD_APPL_SUCCESS);
+export const searchAttdApplFailure =createAction(types.SEARCH_ATTD_APPL_FAILURE);
+export const updateAttdApplSuccess =createAction(types.UPDATE_ATTD_APPL_SUCCESS);
+export const updateAttdApplFailure =createAction(types.UPDATE_ATTD_APPL_FAILURE);
+//************************* 결제승인관리 종료 _준서 *************************
 
 
 
