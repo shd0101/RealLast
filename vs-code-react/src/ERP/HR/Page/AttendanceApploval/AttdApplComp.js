@@ -21,7 +21,6 @@ const AttdApplComp = ({ attdApplList, searchAttdApplList, updateAttdApplList, er
   const fromDate = useInput("2020-01-01");
   const toDate = useInput("2020-12-31");
   let selectedInput = document.getElementsByName("deptDivision")[0];
-  let rejectCauseInfoEle = document.getElementsByName('rejectCauseInfo')[0];
 
   // 조회버튼(select) 
   // 승인,취소,반려버튼(그리드 칼럼 status변경) => 그리드 셀클릭이벤트
@@ -52,7 +51,7 @@ const AttdApplComp = ({ attdApplList, searchAttdApplList, updateAttdApplList, er
   const [ reqDateVal, setReqDateVal ] = useState("");
   const [ restAttdVal, setRestAttdVal ] = useState("");
   const [ openDialog, setOpenDialog ] = useState(false);
-  const [ rejectCauseInfo, setRejectCauseInfo ] = useState("");   // 다이얼로그에서 입력한 거절,반려 사유를 뽑아서 엑시오스 data에 추가할것!!
+  const [ rejectCauseInfo, setRejectCauseInfo ] = useState("");
   
 
   function deptDivisionHandleOpen() {
@@ -67,9 +66,12 @@ const AttdApplComp = ({ attdApplList, searchAttdApplList, updateAttdApplList, er
     setOpenDialog(true);
   }
 
-  const closeApplDialog = () => {      
-      setRejectCauseInfo(codeDivision(rejectCauseInfoEle));
-      console.log(codeDivision(rejectCauseInfoEle));
+  const closeApplDialog = () => {
+    let rejectCauseInfoEle = document.getElementsByName('rejectCauseInfo')[0];
+    console.log(rejectCauseInfoEle);
+    console.log(codeDivision(rejectCauseInfoEle));
+    setRejectCauseInfo(codeDivision(rejectCauseInfoEle));
+    console.log(rejectCauseInfo);
     setOpenDialog(false);
   }
 
@@ -110,13 +112,12 @@ const AttdApplComp = ({ attdApplList, searchAttdApplList, updateAttdApplList, er
 
   const attdApplData = {
     applovalStatus: applovalVal,
-    rejectCause: rejectCauseInfo,   // 다이얼로그에서 입력한 거절,반려 사유를 뽑아서 엑시오스 data에 추가할것!!
+    rejectCause: rejectCauseInfo,   // REST_ATTD테이블을 확인해보면 한번에 여러줄이 변경될 것임. 이는 업무상 한명이 하루에 여러 근태외 신청을 넣지는 않기때문에 한 계정으로 여러번 집어넣어서 나온 결과일뿐이다
     empCode: sessionStorage.getItem("empCodeInfo_token"),
     requestDate: reqDateVal
   }
 
-  const confirmApplChange = () => {  
-    setRejectCauseInfo("55555");    // 다이얼로그에서 입력한 거절,반려 사유를 뽑아서 엑시오스 data에 추가할것!!
+  const confirmApplChange = () => {
     console.log(rejectCauseInfo);
     dispatch({ type: UPDATE_ATTD_APPL_REQUEST, data: attdApplData });
     fetch();
