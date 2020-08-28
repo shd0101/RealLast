@@ -2,46 +2,64 @@ package kr.co.seoulit.erp.hr.salary.controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 
 //import kr.co.seoulit.erp.base.controller.DeptListController;
 import kr.co.seoulit.erp.hr.salary.sf.SalaryServiceFacade;
 import kr.co.seoulit.erp.hr.salary.to.BaseSalaryTO;
 
 @CrossOrigin("*")
-@RestController
 @RequestMapping("/hr/*")
-public class BaseSalaryController  {
+@RestController
+public class BaseSalaryController {
+	//*****************************************08-28 손유찬 시작********************************************************
 	@Autowired
 	private SalaryServiceFacade salaryServiceFacade;
-
-	@RequestMapping("/salary/baseSalaryManage.do")
-	@ResponseBody
-	public ArrayList<BaseSalaryTO> findBaseSalaryList(){
-	return  salaryServiceFacade.findBaseSalaryList();
+	HashMap<String,Object> map = new HashMap<>();
+	
+	@RequestMapping(value = "/salary/baseSalaryManage.do",method = RequestMethod.GET)
+	public HashMap<String,Object> findBaseSalaryList(){
+	
+		try {
+			ArrayList<BaseSalaryTO> baseSalaryList = salaryServiceFacade.findBaseSalaryList();
+			map.clear();
+			map.put("baseSalaryList", baseSalaryList);
+			map.put("errorMsg","success");
+			map.put("errorCode", 0);
+		} catch (Exception ioe) {
+			map.clear();
+			map.put("errorCode", -1);
+			map.put("errorMsg", ioe.getMessage());
+		}
+		return map;
 	}
-		
-}
 
-/*
- * public ModelAndView modifyBaseSalaryList(HttpServletRequest request,
- * HttpServletResponse response){
- * 
- * String sendData = request.getParameter("sendData"); try {
- * response.setContentType("application/json; charset=UTF-8"); //간편하고 성능좋은
- * gson으로 변경 Gson gson = new Gson(); ArrayList<BaseSalaryTO> baseSalaryList =
- * gson.fromJson(sendData, new
- * TypeToken<ArrayList<BaseSalaryTO>>(){}.getType());
- * salaryServiceFacade.modifyBaseSalaryList(baseSalaryList);
- * modelMap.put("errorMsg","success"); modelMap.put("errorCode", 0); } catch
- * (Exception ioe) { modelMap.clear(); modelMap.put("errorMsg",
- * ioe.getMessage()); } modelAndView = new ModelAndView("jsonView", modelMap);
- * return modelAndView; }
- * 
- * }
- */
+	@RequestMapping(value = "/salary/baseSalaryManage.do",method = RequestMethod.POST)
+	public HashMap<String,Object> modifyBaseSalaryList(@RequestBody Map<String , ArrayList<BaseSalaryTO>> sendData){
+		try {
+			System.out.println("BaseSalaryController 시작");
+			ArrayList<BaseSalaryTO> baseSalaryList = sendData.get("sendData");
+			System.out.println(baseSalaryList);
+			salaryServiceFacade.modifyBaseSalaryList(baseSalaryList);
+			map.clear();
+			map.put("errorMsg","success");
+			map.put("errorCode", 0);
+
+		} catch (Exception ioe) {
+			map.clear();
+			map.put("errorCode", -1);
+			map.put("errorMsg", ioe.getMessage());
+		}
+		return map;
+	}
+}
+//*****************************************08-28 손유찬 종료********************************************************

@@ -130,7 +130,7 @@ public class HrBaseApplicationServiceImpl implements HrBaseApplicationService {
       @Override
       public void modifyPosition(ArrayList<BaseSalaryTO> positionList) {
          // TODO Auto-generated method stub
-         
+    	//****************************************************2020-08-28 63기 손유찬 ********************************* **********************
          if (positionList != null && positionList.size() > 0) {
             for (BaseSalaryTO position : positionList) {
                HrDetailCodeTO detailCodeto = new HrDetailCodeTO();
@@ -139,7 +139,7 @@ public class HrBaseApplicationServiceImpl implements HrBaseApplicationService {
                case "update":
                   baseSalaryDAO.updatePosition(position);
                   detailCodeto.setDetailCodeNumber(position.getPositionCode());
-                  detailCodeto.setDetailCodeName(position.getPosition());
+                  detailCodeto.setDetailCodeName(position.getPositionName());
                   detailCodeto.setCodeNumber("CO-04");
                   detailCodeto.setDetailCodeNameusing("Y");
                   detailCodeDAO.updateDetailCode(detailCodeto);
@@ -148,7 +148,7 @@ public class HrBaseApplicationServiceImpl implements HrBaseApplicationService {
                case "insert":
                   baseSalaryDAO.insertPosition(position);
                   detailCodeto.setDetailCodeNumber(position.getPositionCode());
-                  detailCodeto.setDetailCodeName(position.getPosition());
+                  detailCodeto.setDetailCodeName(position.getPositionName());
                   detailCodeto.setCodeNumber("CO-04");
                   detailCodeto.setDetailCodeNameusing("Y");
                   detailCodeDAO.registDetailCode(detailCodeto);
@@ -157,12 +157,12 @@ public class HrBaseApplicationServiceImpl implements HrBaseApplicationService {
                case "delete":
                   baseSalaryDAO.deletePosition(position);
                   detailCodeto.setDetailCodeNumber(position.getPositionCode());
-                  detailCodeto.setDetailCodeName(position.getPosition());
+                  detailCodeto.setDetailCodeName(position.getPositionName());
                   detailCodeDAO.deleteDetailCode(detailCodeto);
                   break;
                }
             }
-         }      
+         }      //****************************************************2020-08-28 63기 손유찬 ********************************* **********************
       }
 
       @Override

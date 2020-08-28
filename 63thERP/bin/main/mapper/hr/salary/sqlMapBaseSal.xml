@@ -7,27 +7,32 @@
 	
 	<resultMap type="kr.co.seoulit.erp.hr.salary.to.BaseSalaryTO" id="baseSalaryResult">
 		<result property="positionCode" column="POSITION_CODE" />
-		<result property="position" column="POSITION" />
+		<result property="positionName" column="POSITION_NAME" />
 		<result property="baseSalary" column="BASE_SALARY" />
 		<result property="hobongRatio" column="HOBONG_RATIO" />
+		<result property="deptName" column="DEPT_NAME" />
 	</resultMap>
-	
+<!-- //****************************************************2020-08-28 63기 손유찬 ********************************* ********************** -->
 	<select id="selectBaseSalaryList" resultMap="baseSalaryResult">
 		SELECT 
-		POSITION_CODE
-		, POSITION
-		, BASE_SALARY
-		, HOBONG_RATIO
-		FROM POSITION
+		p.POSITION_CODE
+   		,d.DEPT_NAME
+   		,p.DEPT_CODE
+		, p.POSITION_NAME
+		, p.BASE_SALARY
+		, p.HOBONG_RATIO
+		FROM POSITION p , DEPARTMENT d
+    WHERE p.DEPT_CODE= d.DEPT_CODE
+    ORDER BY DEPT_NAME
 	</select>
 	
 	<update id="updateBaseSalary" parameterType="kr.co.seoulit.erp.hr.salary.to.BaseSalaryTO">
 		UPDATE POSITION SET 
 		BASE_SALARY = #{baseSalary}
 		, HOBONG_RATIO = #{hobongRatio} 
-		WHERE POSITION_CODE = #{positionCode}
+		WHERE POSITION_CODE = #{positionCode} and DEPT_CODE= #{deptCode}
 	</update>
-	
+<!-- //****************************************************2020-08-28 63기 손유찬 ********************************* ********************** -->
 	<insert id="insertPosition" parameterType="kr.co.seoulit.erp.hr.salary.to.BaseSalaryTO">
 		INSERT INTO POSITION VALUES (
 		#{positionCode}
