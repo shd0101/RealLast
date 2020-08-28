@@ -19,16 +19,30 @@ const RestAttdComp = props => {
 
   const fromDate = useInput("2020-01-01");
   const toDate = useInput("2020-12-31");
-  const selectedInput = document.getElementsByName("attdRestTypeCode")[0];
-  console.log(selectedInput);
+  let selectedInput = document.getElementsByName("attdRestTypeCode")[0];
   
   const codeDivision = element => {
     if(typeof element == "undefined") return "";
     else {
-      console.log("%%%%%%%%%%%%");
       // console.log(element.value); 
       return element.value; 
     }
+  }
+
+  const getInnerText = (compVal) => {
+    if(!compVal) return;
+    let returnVal = "";
+    switch(compVal){
+      case "ADC003": returnVal = "공외출"; break;
+      case "ADC005": returnVal = "사외출"; break;
+      case "DAC004": returnVal = "조퇴"; break;
+      case "ETS001": returnVal = "출장수당"; break;
+      case "ETS002": returnVal = "유류비"; break;
+      case "ETS003": returnVal = "자기개발지원금"; break;
+      case "ETS004": returnVal = "식비"; break;
+      default : alert("compVal 확인요망");
+    }
+    return returnVal;
   }
   
   const fetchAttdRestList_axiosOptions = {
@@ -44,7 +58,7 @@ const RestAttdComp = props => {
     }
   };
   
-  const { data, fetch } = useAxios(fetchAttdRestList_axiosOptions);
+  const { data, fetch } = useAxios(fetchAttdRestList_axiosOptions);   // 조회를 사가로 했으면 결제승인페이지가 쉬웠을듯
     
   const fetchAttdRestList = () => {
     fetch();
@@ -64,7 +78,6 @@ const RestAttdComp = props => {
   }
 
   function attdRestHandleClose() {
-    console.log("LOLOLOLOL");
     // console.log(data);
     setAttdRestOpen(false);
   }
@@ -73,40 +86,50 @@ const RestAttdComp = props => {
     setAttdRestOpen(true);
   }
 
-  const requestDate = useInput();
   const attdRestStartDate = useInput();
   const attdRestEndDate = useInput();
   const attdRestTypeCode = useInput();
   const cause = useInput();
   const cost = useInput();
+  const startTime = useInput();
+  const endTime = useInput();
 
   const dispatch = useDispatch();
 
   const BatchDailyAttdRest = () => {
-    console.log("+++++++++++++++");
+    if(!codeDivision(selectedInput)) { 
+      alert("근태외 구분란을 입력하세요"); return; 
+    }
 
     const numberOfDays = (
       (new Date(attdRestEndDate.value).getTime() -
         new Date(attdRestStartDate.value).getTime()) /
       (1000 * 60 * 60 * 24)
     ).toString();
+
+    const timeFormAlter = (primitiveTime) => {
+      if(!primitiveTime) return;
+      let changedTime = primitiveTime.replace(":","");
+      if(changedTime.charAt(0) == 0) changedTime = changedTime.replace(/(^0+)/, "");
+
+      return Number(changedTime);
+    }
     
     const restAttdApplyData = {
       empCode: sessionStorage.getItem("empCodeInfo_token"),
       restTypeCode: attdRestTypeCode.value,
-      restTypeName: "",
+      restTypeName: getInnerText(codeDivision(selectedInput)),
       requestDate: new Date().toISOString().substring(0, 10),
       startDate: attdRestStartDate.value,
       endDate: attdRestEndDate.value,
       cause: cause.value,
-      approvalStatus: "N",
+      applovalStatus: "승인대기",   // RST_ATTD테이블 칼럼 오탈자
       rejectCause: "",
-      cost: "",
-      startTime:  "",
-      endTime:  "",
-      numberOfDays: numberOfDays
+      cost: "",    // getInnerText(cost.value), RST_ATTD테이블에 COST칼럼은 있지만, 해당칼럼은 NUMBER형이다. 각 항목에 대한 비용이 정의된 테이블을 찾지못했음
+      startTime: timeFormAlter(startTime.value),
+      endTime: timeFormAlter(endTime.value),
+      numberOfDays: ( numberOfDays == "NaN" ? 0 : numberOfDays )
     };
-    console.log(restAttdApplyData);
     dispatch({ type: REST_ATTD_REQUEST, data: restAttdApplyData });
     
   };
@@ -141,7 +164,6 @@ const RestAttdComp = props => {
                 onOpen={attdRestHandleOpen}
                 onChange={attdRestTypeCode.onChange}
               >
-                <option value="">ALL</option>
                 <option value="ADC003">공외출</option>
                 <option value="ADC005">사외출</option>
                 <option value="DAC004">조퇴</option>
@@ -156,21 +178,8 @@ const RestAttdComp = props => {
               <Typography variant="h5">근태외 신청</Typography>
             </Toolbar>
           </AppBar>
-          <br/><br/><br/>
+          <br/>
           <form>
-            <TextField
-              id="requestDate"
-              label="신청날짜"
-              type="date"
-              defaultValue={requestDate.value}
-              onChange={requestDate.onChange}
-              className={classes.textField}
-              variant="outlined"
-              InputLabelProps={{
-                shrink: true
-              }}
-            />
-            <br/>
             <TextField
               id="attdRestStartDate"
               label="근태외 시작일"
@@ -192,6 +201,32 @@ const RestAttdComp = props => {
               defaultValue={attdRestEndDate.value}
               onChange={attdRestEndDate.onChange}
               className={classes.textField}
+              InputLabelProps={{
+                shrink: true
+              }}
+            />
+            <br/>
+            <TextField
+              id="startTime"
+              label="시작시간"
+              type="time"
+              defaultValue={startTime.value}
+              onChange={startTime.onChange}
+              className={classes.textField}
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true
+              }}
+            />
+            <br/>
+            <TextField
+              id="endTime"
+              label="종료시간"
+              type="time"
+              defaultValue={endTime.value}
+              onChange={endTime.onChange}
+              className={classes.textField}
+              variant="outlined"
               InputLabelProps={{
                 shrink: true
               }}
@@ -220,7 +255,7 @@ const RestAttdComp = props => {
               >
                 <MenuItem value="ETS001">출장수당</MenuItem>
                 <MenuItem value="ETS002">유류비</MenuItem>
-                <MenuItem value="ETS003">자기계발지원금</MenuItem>
+                <MenuItem value="ETS003">자기개발지원금</MenuItem>
                 <MenuItem value="ETS004">식비</MenuItem>
               </Select>
             </FormControl>
@@ -256,7 +291,7 @@ const RestAttdComp = props => {
               <Typography variant="h5">근태외 현황조회</Typography>
             </Toolbar>
           </AppBar>
-          <br/><br/><br/>
+          <br/>
           <div>
             <TextField
               id={"fromDate"}
@@ -267,6 +302,7 @@ const RestAttdComp = props => {
               className={classes.textField}
               variant="outlined"
             />
+            ~
             <TextField
               id={"toDate"}
               label={"검색날짜"}
@@ -279,7 +315,7 @@ const RestAttdComp = props => {
             <Button
               variant={"outlined"}
               color={"primary"}
-              onClick={fetchAttdRestList}
+              onClick= {fetchAttdRestList}
               className={classes.button}
             >
               조회
