@@ -321,7 +321,7 @@ function* DayAttdSSaga(action) {
 
 //=================================일근태 관리 원구 종료 ======================================//
 
-// *********************** 외출 조퇴 신청 시작 _준서 ***********************
+//*********************** 외출 조퇴 신청 시작 _준서 ***********************
 function* restAttdSaga(action) {
   console.log("HR Saga Func_restAttdSaga")
   console.log(action);
@@ -337,14 +337,16 @@ function* restAttdSaga(action) {
           startDate: action.data.startDate,
           endDate: action.data.endDate,
           cause: action.data.cause,
-          approvalStatus: action.data.approvalStatus,
+          applovalStatus: action.data.applovalStatus,
           rejectCause: action.data.rejectCause,
           cost: action.data.cost,
           startTime: action.data.startTime,
           endTime: action.data.endTime,
           numberOfDays: action.data.numberOfDays,
       },
-    });
+    })
+    .then(function(response) { alert("신청완료"); })
+    .catch(function(error) { alert("신청실패") });
     yield put(restAttdSuccess(data));
   } catch (e) {
     yield put(restAttdFailure(e.message));
