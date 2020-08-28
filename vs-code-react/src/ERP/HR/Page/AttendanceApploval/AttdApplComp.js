@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import UseStyles from "./UseStyles";
 import {Paper,TextField,Button,Grid,AppBar,InputLabel,Typography,Toolbar,MenuItem,Select,
-  FormControl,OutlinedInput, Dialog, DialogTitle, DialogContent, DialogActions} from "@material-ui/core"
+  FormControl,OutlinedInput, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText} from "@material-ui/core"
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-material.css";
@@ -21,6 +21,7 @@ const AttdApplComp = ({ attdApplList, searchAttdApplList, updateAttdApplList, er
   const fromDate = useInput("2020-01-01");
   const toDate = useInput("2020-12-31");
   let selectedInput = document.getElementsByName("deptDivision")[0];
+  let rejectCauseInfoEle = document.getElementsByName('rejectCauseInfo')[0];
 
   // 조회버튼(select) 
   // 승인,취소,반려버튼(그리드 칼럼 status변경) => 그리드 셀클릭이벤트
@@ -49,7 +50,10 @@ const AttdApplComp = ({ attdApplList, searchAttdApplList, updateAttdApplList, er
   const [deptDivisionOpen, setDeptDivisionOpen] = React.useState(false);
   const [ applovalVal, setApplovalVal ] = useState("");
   const [ reqDateVal, setReqDateVal ] = useState("");
+  const [ restAttdVal, setRestAttdVal ] = useState("");
   const [ openDialog, setOpenDialog ] = useState(false);
+  const [ rejectCauseInfo, setRejectCauseInfo ] = useState("");   // 다이얼로그에서 입력한 거절,반려 사유를 뽑아서 엑시오스 data에 추가할것!!
+  
 
   function deptDivisionHandleOpen() {
     setDeptDivisionOpen(true);
@@ -63,7 +67,9 @@ const AttdApplComp = ({ attdApplList, searchAttdApplList, updateAttdApplList, er
     setOpenDialog(true);
   }
 
-  const closeApplDialog = () => {
+  const closeApplDialog = () => {      
+      setRejectCauseInfo(codeDivision(rejectCauseInfoEle));
+      console.log(codeDivision(rejectCauseInfoEle));
     setOpenDialog(false);
   }
 
@@ -79,6 +85,7 @@ const AttdApplComp = ({ attdApplList, searchAttdApplList, updateAttdApplList, er
     console.log(event);
     setApplovalVal(event.data.applovalStatus);
     setReqDateVal(event.data.requestDate);
+    setRestAttdVal(event.data.restTypeName);
   }
 
   const changeStatus = (event) => {
@@ -94,22 +101,25 @@ const AttdApplComp = ({ attdApplList, searchAttdApplList, updateAttdApplList, er
       case "companion": setApplovalVal(document.getElementsByClassName("MuiButton-label")[3].innerHTML); break;
     }
     console.log(applovalVal);
-    if(event.currentTarget.name == "applovalCancel" || event.currentTarget.name == "companion") openApplDialog();
 
-    //////////////////// 다이얼로그에서 입력한 값을 긁어서, 다이얼로그를 닫으면 확정버튼이 눌러지고 입력한 값이 엑시오스에 추가되도록해야함 
+    if(event.currentTarget.name == "applovalCancel" || event.currentTarget.name == "companion") {
+      openApplDialog();
+
+    }
   }
 
   const attdApplData = {
     applovalStatus: applovalVal,
-    rejectCause: "",
+    rejectCause: rejectCauseInfo,   // 다이얼로그에서 입력한 거절,반려 사유를 뽑아서 엑시오스 data에 추가할것!!
     empCode: sessionStorage.getItem("empCodeInfo_token"),
     requestDate: reqDateVal
   }
 
-  const confirmApplChange = () => {
-    console.log("다이얼로그에서 열어줌");
-    console.log(applovalVal);
+  const confirmApplChange = () => {  
+    setRejectCauseInfo("55555");    // 다이얼로그에서 입력한 거절,반려 사유를 뽑아서 엑시오스 data에 추가할것!!
+    console.log(rejectCauseInfo);
     dispatch({ type: UPDATE_ATTD_APPL_REQUEST, data: attdApplData });
+    fetch();
   }
 
   const inputLabel = React.useRef(null);
@@ -118,7 +128,7 @@ const AttdApplComp = ({ attdApplList, searchAttdApplList, updateAttdApplList, er
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
-  return(
+  return(    
     <Grid item xs={12}>
       <Paper className={classes.mainPaper}>
         <AppBar position="relative" className={classes.subCategory}>
@@ -237,16 +247,25 @@ const AttdApplComp = ({ attdApplList, searchAttdApplList, updateAttdApplList, er
           />
           </div>
       </Paper>
-      <Dialog open={openDialog} onClose={closeApplDialog} fullWidth={true} maxWidth={'xs'}>
-        <DialogTitle id="simple-dialog-title"> 승인취소 / 반려 사유 </DialogTitle>
+      {/*   https://material-ui.com/components/dialogs/#dialog  FormDialog참조   */}
+      <Dialog open={openDialog} onClose={closeApplDialog} aria-labelledby="form-dialog-title">
+        <DialogTitle id="simple-dialog-title">
+          [{sessionStorage.getItem("empNameInfo_token")}] 사원의 [{restAttdVal}] 신청내역  
+        </DialogTitle>
         <DialogContent>
-          <TextField></TextField>
+          <TextField
+            autoFocus
+            label={"승인취소 / 반려 사유"}
+            name={"rejectCauseInfo"}
+            fullWidth
+          />
         </DialogContent>
         <DialogActions>
-            <Button variant="outlined" color="secondary" onClick={closeApplDialog}>닫기</Button>
+          <Button variant="outlined" color="secondary" onClick={closeApplDialog}>확인</Button>
         </DialogActions>
       </Dialog>
-    </Grid>
+      
+    </Grid>    
   );
 };
 
