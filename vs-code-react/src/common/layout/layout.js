@@ -164,12 +164,13 @@ function Layout(props) {
             />{" "}
            {/************************** 월근태관리 _재영 _20.08.23 */}            
             
-            {/* 결재승인관리 */}
+            {/************************** 결재승인관리 시작 _준서 */}
             <Route
               exact
-              path="/app/hr/attendance/monthAttendanceManage"
-              component={hr.MonthAttdManageContainer}
+              path="/app/hr/attendance/attendanceApploval"
+              component={hr.AttendanceApploval}
             />{" "}
+            {/************************** 결재승인관리 종료 _준서 */}
 
            
 
@@ -203,14 +204,6 @@ function Layout(props) {
               exact
               path="/app/hr/salary/baseDeductionManage"
               component={hr.BaseDeductionManage}
-            />{" "}
-            {/*******************2020-08-26 손유찬 종료*************************/}
-            {/* 급여기준관리 */}
-            {/*******************2020-08-26 손유찬 시작*************************/}
-            <Route
-              exact
-              path="/app/hr/salary/BaseSalaryManage"
-              component={hr.BaseSalaryManage}
             />{" "}
             {/*******************2020-08-26 손유찬 종료*************************/}
 

@@ -9,7 +9,7 @@ export { default as RestAttendance } from "ERP/HR/Page/RestAttendance/RestAttend
 // 근 태 관 리 =========================================================================================================================
 export { default as DayAttdManageContainer } from "ERP/HR/Page/DayAttdManage/DayAttdManageContainer"; // 2020-08-23 일 근태 관리   재영
 export { default as MonthAttdManageContainer } from "ERP/HR/Page/MonthAttendance/MonthAttdManageContainer"; // 2020-08-21 월 근태 관리  재영
-
+export { default as AttendanceApploval } from "ERP/HR/Page/AttendanceApploval/AttendanceApploval";  // 결재승인관리 _준서
 
 // 급 여 조 회 =========================================================================================================================
 export { default as MonthSalaryManage } from "ERP/HR/Page/MonthSalary/MonthSalaryManage"; //2020-08-20 63기 손유찬 -- 월별 급여조회
@@ -20,4 +20,3 @@ export { default as MonthSalaryManage } from "ERP/HR/Page/MonthSalary/MonthSalar
 export { default as CloseSalaryContainer } from "ERP/HR/Page/SalaryManage/CloseSalaryContainer"; //2020-08-20 63기 손유찬수정 --월급여 조회마감
 export { default as BaseExtSalManage } from "ERP/HR/Page/BaseExtSalManage/BaseExtSalManage"; //2020-08-22 63기 손유찬 -- 초과수당관리
 export { default as BaseDeductionManage } from "ERP/HR/Page/BaseDeductionManage/BaseDeductionManage"; //2020-08-26 63기 손유찬 -- 공제기준관리
-export { default as BaseSalaryManage } from "ERP/HR/Page/BaseSalaryManage/BaseSalaryManage"; //2020-08-28 63기 손유찬 -- 급여기준관리
