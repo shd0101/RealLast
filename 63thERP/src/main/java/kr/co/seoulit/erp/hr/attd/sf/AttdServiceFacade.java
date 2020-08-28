@@ -16,10 +16,10 @@ public interface AttdServiceFacade {
 	public void insertDayAttd(DayAttdTO dayAttd); // test
 
 	public ArrayList<RestAttdTO> findRestAttdList(String empCode, String startDate, String endDate, String code);
-	public ArrayList<RestAttdTO> findRestAttdListByDept(String deptName, String startDate, String endDate);
+	public ArrayList<RestAttdTO> findRestAttdListByDept(HashMap<String,String> attdApplMap);
 	public ArrayList<RestAttdTO> findRestAttdListByToday(String empCode, String toDay);
 	public void registRestAttd(HashMap<String, String> attdRestMap);
-	public void modifyRestAttdList(ArrayList<RestAttdTO> restAttdList);
+	public void modifyRestAttdList(HashMap<String,String> attdApplMap);	// 결재승인관리 시작 _2020.08.27 _준서
 
 	public ArrayList<DayAttdMgtTO> findDayAttdMgtList(String applyDay);
 	public void modifyDayAttdMgtList(ArrayList<DayAttdMgtTO> dayAttdMgtList);

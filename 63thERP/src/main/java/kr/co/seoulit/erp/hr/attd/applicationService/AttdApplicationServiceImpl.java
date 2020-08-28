@@ -63,7 +63,7 @@ public class AttdApplicationServiceImpl implements AttdApplicationService{
 		map.put("attdTypeName", dayAttd.getAttdTypeName());
 		map.put("applyDay", dayAttd.getApplyDay());
 		map.put("time", dayAttd.getTime());
-		System.out.println("어플리케이션퍼사드"+map);
+		System.out.println("�뼱�뵆由ъ��씠�뀡�띁�궗�뱶"+map);
 		
 		return dayAttdDAO.batchInsertDayAttd(map);
 		
@@ -119,19 +119,19 @@ public class AttdApplicationServiceImpl implements AttdApplicationService{
 	}
 	
 	@Override
-	public ArrayList<RestAttdTO> findRestAttdListByDept(String deptName, String startDate, String endDate) {
+	public ArrayList<RestAttdTO> findRestAttdListByDept(HashMap<String,String> attdApplMap) {
 		// TODO Auto-generated method stub
 		ArrayList<RestAttdTO> restAttdList = null;
-		HashMap<String, Object> map = new HashMap<>();
-		
-		if(deptName.equals("筌��ㅻ군�븝옙占쎄�")) {
-			restAttdList = restAttdDAO.selectRestAttdListByAllDept(startDate);
-		}else {
-			map.put("deptName", deptName);
-			map.put("startDate", startDate);
-			map.put("endDate", endDate);
-			restAttdList = restAttdDAO.selectRestAttdListByDept(map);
-		}
+//		HashMap<String, Object> map = new HashMap<>();
+//		
+//		if(deptName.equals("嶺뚳옙占썬끇援곤옙釉앹삕�뜝�럡占�")) {
+//			restAttdList = restAttdDAO.selectRestAttdListByAllDept(startDate);
+//		}else {
+//			map.put("deptName", deptName);
+//			map.put("startDate", startDate);
+//			map.put("endDate", endDate);
+			restAttdList = restAttdDAO.selectRestAttdListByDept(attdApplMap);
+//		}
 	
 		return restAttdList;
 	}
@@ -175,18 +175,14 @@ public class AttdApplicationServiceImpl implements AttdApplicationService{
 //		
 //	}
 
+//	********************* 결재승인관리 시작 _2020.08.27 _준서 *********************
 	@Override
-	public void modifyRestAttdList(ArrayList<RestAttdTO> restAttdList) {
+	public void modifyRestAttdList(HashMap<String,String> attdApplMap) {
 		// TODO Auto-generated method stub
-		
-		for(RestAttdTO restAttd : restAttdList){
-			if(restAttd.getStatus().equals("update")){
-				restAttd.setRejectCause("");
-				restAttdDAO.updateRestAttd(restAttd);
-			}
-		}
-		
+		System.out.println("aaaaaaaaaaaaaaaaa");
+		restAttdDAO.updateRestAttd(attdApplMap);		
 	}
+//	********************* 결재승인관리 종료 _2020.08.27 _준서 *********************
 	
 	@Override
 	public ArrayList<DayAttdMgtTO> findDayAttdMgtList(@Param("applyDay") String applyDay) {
@@ -213,7 +209,7 @@ public class AttdApplicationServiceImpl implements AttdApplicationService{
 		
 		for(MonthAttdMgtTO monthAttdMgt : monthAttdMgtList){
 
-			System.out.println("먼스먼스"+monthAttdMgt);
+			System.out.println("癒쇱뒪癒쇱뒪"+monthAttdMgt);
 				if(monthAttdMgt.getStatus().equals("update")) {
 				monthAttdMgt.setFinalizeStatus("Y");
 				monthAttdMgtDAO.updateMonthAttdMgtList(monthAttdMgt);
@@ -269,7 +265,7 @@ public class AttdApplicationServiceImpl implements AttdApplicationService{
 	                     return null;
 	   }
 	   
-	   @Override //�몃�
+	   @Override //占쎈챶占�
 	   public HashMap<String, Object> findDayAttdMgtList(HashMap<String,Object> map) {
 	      // TODO Auto-generated method stub   
 		   dayAttdMgtDAO.batchDayAttdMgtProcesses(map);

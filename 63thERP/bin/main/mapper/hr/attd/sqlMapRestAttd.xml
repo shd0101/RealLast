@@ -52,6 +52,7 @@
 	</select>
 	<!--****************************************************2020-08-26 김준서 ******************************************** -->
 		
+	<!--**************************************************** 결재승인관리 시작 2020-08-28 김준서  ******************************************** -->
 	<select id="selectRestAttdListByDept" resultMap="restAttdResult" parameterType="map">
 		SELECT R.EMP_CODE 
 		, E.EMP_NAME
@@ -69,12 +70,13 @@
 		, R.START_TIME
 		, R.END_TIME 
 		FROM REST_ATTD R
-		, EMP E 
-		WHERE E.DEPT_CODE = #{deptName}
+		, EMPLOYEE_BASIC E 
+		WHERE E.DEPT_CODE = #{deptCode}
 		AND R.REQUEST_DATE BETWEEN TO_DATE(#{startDate},'YYYY-MM-DD') 
 		AND TO_DATE(#{endDate},'YYYY-MM-DD') 
 		AND R.EMP_CODE = E.EMP_CODE 
 	</select>
+	<!--**************************************************** 결재승인관리 종료 2020-08-28 김준서 ******************************************** -->
 	
 	<select id="selectRestAttdListByAllDept" resultMap="restAttdResult" parameterType="string">
 		SELECT R.EMP_CODE 
@@ -153,13 +155,15 @@
 		
 		
 		
-	<update id="updateRestAttd" parameterType="kr.co.seoulit.erp.hr.attd.to.RestAttdTO">
+	<!--**************************************************** 결재승인관리 시작 2020-08-27 김준서 ******************************************** -->
+	<update id="updateRestAttd" parameterType="map">
 		UPDATE REST_ATTD SET 
       APPLOVAL_STATUS = #{applovalStatus},
       REJECT_CAUSE = #{rejectCause}
       WHERE EMP_CODE = #{empCode} 
-      AND REQUEST_DATE = TO_DATE(#{requestDate},'YYYY-MM-DD')
+      AND REQUEST_DATE = TO_DATE(#{requestDate},'YY/MM/DD')
 	</update>
+<!--**************************************************** 결재승인관리 종료 2020-08-27 김준서 ******************************************** -->
 	
 	<delete id="deleteRestAttd" parameterType="kr.co.seoulit.erp.hr.attd.to.RestAttdTO">
 		DELETE FROM REST_ATTD 

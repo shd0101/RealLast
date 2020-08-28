@@ -37,8 +37,8 @@ private AttdApplicationService attdApplicationService;
 			return restAttdList;	
 		}
 	@Override
-	public ArrayList<RestAttdTO> findRestAttdListByDept(String deptName, String startDate, String endDate) {
-			ArrayList<RestAttdTO> restAttdList = attdApplicationService.findRestAttdListByDept(deptName, startDate, endDate);
+	public ArrayList<RestAttdTO> findRestAttdListByDept(HashMap<String,String> attdApplMap) {
+			ArrayList<RestAttdTO> restAttdList = attdApplicationService.findRestAttdListByDept(attdApplMap);
 			return restAttdList;
 		}
 
@@ -52,10 +52,13 @@ private AttdApplicationService attdApplicationService;
 	public void registRestAttd(HashMap<String, String> attdRestMap) {
 			attdApplicationService.registRestAttd(attdRestMap);
 		}
+//	********************* 결재승인관리 시작 _2020.08.27 _준서 *********************
 	@Override
-	public void modifyRestAttdList(ArrayList<RestAttdTO> restAttdList) {
-			attdApplicationService.modifyRestAttdList(restAttdList);
+	public void modifyRestAttdList(HashMap<String,String> attdApplMap) {
+		System.out.println("ffffffffffffffffffffffff");
+			attdApplicationService.modifyRestAttdList(attdApplMap);
 		}
+//	********************* 결재승인관리 종료 _2020.08.27 _준서 *********************
 	@Override
 	public ArrayList<DayAttdMgtTO> findDayAttdMgtList(String applyDay) {
 			ArrayList<DayAttdMgtTO> dayAttdMgtList = attdApplicationService.findDayAttdMgtList(applyDay);
