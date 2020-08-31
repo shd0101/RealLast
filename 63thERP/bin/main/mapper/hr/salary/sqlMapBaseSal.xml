@@ -16,14 +16,14 @@
 	<select id="selectBaseSalaryList" resultMap="baseSalaryResult">
 		SELECT 
 		p.POSITION_CODE
-   		,d.DEPT_NAME
-   		,p.DEPT_CODE
+   		, d.DEPT_NAME
+   		, p.DEPT_CODE
 		, p.POSITION_NAME
 		, p.BASE_SALARY
 		, p.HOBONG_RATIO
 		FROM POSITION p , DEPARTMENT d
-    WHERE p.DEPT_CODE= d.DEPT_CODE
-    ORDER BY DEPT_NAME
+    WHERE p.DEPT_CODE = d.DEPT_CODE
+    ORDER BY DEPT_NAME,	POSITION_CODE
 	</select>
 	
 	<update id="updateBaseSalary" parameterType="kr.co.seoulit.erp.hr.salary.to.BaseSalaryTO">
@@ -34,9 +34,11 @@
 	</update>
 <!-- //****************************************************2020-08-28 63기 손유찬 ********************************* ********************** -->
 	<insert id="insertPosition" parameterType="kr.co.seoulit.erp.hr.salary.to.BaseSalaryTO">
-		INSERT INTO POSITION VALUES (
-		#{positionCode}
-		, #{position}
+		INSERT INTO POSITION( WORKPLACE_CODE, POSITION_CODE, POSITION_NAME, DEPT_CODE, BASE_SALARY, HOBONG_RATIO) VALUES(
+		#{workPlaceCode}
+		, #{positionCode}
+		, #{positionName}
+		, #{deptCode}
 		, #{baseSalary}
 		, #{hobongRatio}
 		)
@@ -45,7 +47,7 @@
 	<delete id="deletePosition" parameterType="kr.co.seoulit.erp.hr.salary.to.BaseSalaryTO">
 		DELETE FROM POSITION
 		WHERE POSITION_CODE = #{positionCode} 
-		AND POSITION = #{position}
+		AND POSITION_NAME = #{positionName}
 	</delete>
-	
+<!-- //****************************************************2020-08-28 63기 손유찬 ********************************* ********************** -->	
 </mapper>

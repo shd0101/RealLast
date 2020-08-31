@@ -13,6 +13,7 @@ public class BaseSalaryTO extends BaseTO {
 	hobongRatio,
 	deptName,
 	deptCode,
+	workPlaceCode,
 	status;
 	
 }

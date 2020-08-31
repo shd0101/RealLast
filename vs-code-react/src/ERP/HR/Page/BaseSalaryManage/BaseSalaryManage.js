@@ -15,6 +15,7 @@ const BaseDeductionManage = () => {
     const [data, setData] = useState("");
     const [gridEvent, setGridEvent] = useState();
 
+
     useEffect(() => {
         axios
             .get("http://localhost:8282/hr/salary/baseSalaryManage.do",)
@@ -30,10 +31,12 @@ const BaseDeductionManage = () => {
 
 //수정된 값을 담을 배열
 let list = [];
+let lastCell=[];
 let count = 0; 
 //콘솔에 찍어보려고 선언한 count 
 //그리드 수정이 끝난후 발생하는 이벤트의 콜백메서드
 function CellEditingStopped(row) {
+  if(row.data.status!='insert'){
     row.data.status = "update"
     list.push(row.data);
     console.log("이건 로우 데이타");
@@ -44,31 +47,60 @@ function CellEditingStopped(row) {
   console.log(list[count].hobongRatio);
   console.log(list[count].status); 
     count++;
+  }else     list.push(row.data);
 };
+
+//그리드에 줄 생성 메서트
+const createNewRowData = () => {
+  let newData = {
+    workPlaceCode : "BRC-01",
+    deptName: '부서명 입력', 
+    positionCode: '입력하지 마세요',
+    positionName : '직급명 입력',    
+    baseSalary : '0000',
+    hobongRatio : '인상율 입력',
+      status : 'insert'
+  };
+  return newData;
+}
+
+//추가 버튼 이벤트
+const addOnClick= evet =>{
+  const newItem = createNewRowData();
+  gridEvent.updateRowData({ add: [newItem] });   // 만들어진 새로운 row를 그리드에 add 해라.
+}
+
+
 
 //수정 버튼 이벤트
 const updateOnClick = event => {
 
-    if (list) {
-        console.log("온셀로우 이벤트 " + list);
-        axios.post(
-            "http://localhost:8282/hr/salary/baseSalaryManage.do",
-            {
-              sendData : list
-            },
-            {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            },
-
-        );
+if (list) {
+    console.log("온셀로우 이벤트 " + list);
+    axios.post("http://localhost:8282/hr/salary/baseSalaryManage.do", 
+    { sendData: list }, 
+    {  headers: {  "Content-Type": "application/json" }
+    },
+              );
         alert("성공적으로 수정 되었습니다.");
 
     } else 
         alert("수정 된 내역이 없습니다.");
     }
 ;
+
+//셀클릭 한 값을 담는 함수
+function LastClick(event){
+    lastCell = event.data;
+}
+//삭제 버튼 이벤트
+const deleteOnClick = event =>{
+  lastCell.status = "delete";
+  list.push(lastCell);
+  updateOnClick();
+}
+
+
 // 그리드 숫자형식 변경 함수 시작
 function currencyFormatter(params) {
   return formatNumber(params.value) + " 원";
@@ -84,9 +116,10 @@ function formatNumber(number) {
   //AG 그리드의 헤드
   const state = {
     columnDefs: [
-      { headerName: "부서명", field: "deptName" },
+      { headerName: "사업장코드", field: "workPlaceCode" ,hide:true },
+      { headerName: "부서명", field: "deptName" ,editable:true },
       { headerName: "직급코드", field: "positionCode" },
-      { headerName: "직급명", field: "positionName" },
+      { headerName: "직급명", field: "positionName",editable:true },
       { headerName: "기본급", field: "baseSalary",editable:true , valueFormatter: currencyFormatter},
       { headerName: "호봉인상율", field: "hobongRatio", editable:true},
 
@@ -105,13 +138,7 @@ function formatNumber(number) {
             </Toolbar>
           </AppBar>
         </div>
-        <div>
-        <FormControl style={{ minWidth: "410px" }}></FormControl>
-        <FormControl style={{ minWidth: "200px" }}></FormControl>
-        </div>
-
-        <br />
-        
+        <br /><br />
         <div
           className="ag-theme-balham"
           style={{
@@ -124,19 +151,35 @@ function formatNumber(number) {
             columnDefs={state.columnDefs}
             rowData={state.rowData}
             onCellEditingStopped={CellEditingStopped}
+            onCellClicked={LastClick}
             onGridReady={event => {
               event.api.sizeColumnsToFit();
-              setGridEvent(event);
+              setGridEvent(event.api);
             }}
           ></AgGridReact>
-          <br/>
-        </div>
-        <FormControl style={{ minWidth: "200px" }}/>
-        <FormControl style={{ minWidth: "200px" }}>
-           <Button
-            variant="contained"  color="primary"  size="large" onClick={updateOnClick}  startIcon={<InputIcon />} >  수정
-           </Button>
-      </FormControl>
+          </div>
+          <br/><br/>
+        <FormControl style={{ minWidth: "85px" }}/>
+        <FormControl style={{ minWidth: "100px" }}>
+          <Button  variant="contained" color="primary" size="large" onClick={addOnClick} startIcon={<InputIcon />}>
+              추가
+          </Button>
+        </FormControl> <FormControl style={{ minWidth: "10px" }}/>       
+        <FormControl style={{ minWidth: "100px" }}>           
+          <Button variant="contained" color="primary" size="large"  onClick={updateOnClick} startIcon={<InputIcon />}>
+              등록
+          </Button>
+        </FormControl>   <FormControl style={{ minWidth: "10px" }}/>       
+          <FormControl style={{ minWidth: "100px" }}>           
+          <Button  variant="contained" color="primary" size="large" onClick={updateOnClick} startIcon={<InputIcon />}>
+              수정
+          </Button>
+        </FormControl> <FormControl style={{ minWidth: "10px" }}/>   
+          <FormControl style={{ minWidth: "100px" }}>   
+          <Button  variant="contained" color="primary"  size="large"  onClick={deleteOnClick}  startIcon={<InputIcon />}>
+              삭제
+          </Button>
+        </FormControl>
       </div>
       
     )

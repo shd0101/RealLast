@@ -89,13 +89,46 @@ public class SalaryApplicationServiceImpl implements SalaryApplicationService{
 		ArrayList<BaseSalaryTO> baseSalaryList = baseSalaryDAO.selectBaseSalaryList();
 		return baseSalaryList;
 	}
+//****************************************************2020-08-31 63기 손유찬 ********************************* **********************
 	@Override
 	public void modifyBaseSalaryList(ArrayList<BaseSalaryTO> baseSalaryList) {
 		for(BaseSalaryTO baseSalary : baseSalaryList){
 			if(baseSalary.getStatus().equals("update"))
 				baseSalaryDAO.updateBaseSalary(baseSalary);
+			
+			if(baseSalary.getStatus().equals("insert")) {
+				switch(baseSalary.getPositionName()) {
+				case "사장" : baseSalary.setPositionCode("POS-01"); break;
+				case "이사" : baseSalary.setPositionCode("POS-02"); break;
+				case "부장" : baseSalary.setPositionCode("POS-03"); break;
+				case "차장" : baseSalary.setPositionCode("POS-04"); break;
+				case "과장" : baseSalary.setPositionCode("POS-05"); break;
+				case "대리" : baseSalary.setPositionCode("POS-06"); break;
+				case "사원" : baseSalary.setPositionCode("POS-07"); break;
+				case "인턴" : baseSalary.setPositionCode("POS-08"); break;
+				case "계약직" : baseSalary.setPositionCode("POS-09"); break;
+	            default: baseSalary.setPositionCode("X"); break;
+	            }
+				switch(baseSalary.getDeptName()) {
+				case "총무부" : baseSalary.setDeptCode("DPT-01"); break;
+				case "영업부" : baseSalary.setDeptCode("DPT-02"); break;
+				case "생산부" : baseSalary.setDeptCode("DPT-03"); break;
+				case "구매부" : baseSalary.setDeptCode("DPT-04"); break;
+				case "인사부" : baseSalary.setDeptCode("DPT-05"); break;
+				case "홍보부" : baseSalary.setDeptCode("DPT-06"); break;
+				case "개발부" : baseSalary.setDeptCode("DPT-07"); break;
+	            default: baseSalary.setPositionCode("X"); break;
+				}
+				
+					if(baseSalary.getPositionName()=="X" || baseSalary.getDeptName()=="X")
+					baseSalaryDAO.insertPosition(baseSalary);
+					else return;
+				}
+			if(baseSalary.getStatus().equals("delete"))
+				baseSalaryDAO.deletePosition(baseSalary);
 		}
 	}
+//****************************************************2020-08-31 63기 손유찬 ********************************* **********************
 	@Override
 	public ArrayList<BaseExtSalTO> findBaseExtSalList() {
 		ArrayList<BaseExtSalTO> baseExtSalList = baseExtSalDAO.selectBaseExtSalList();

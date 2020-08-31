@@ -196,11 +196,12 @@ public class RestAttdController {
 		String code = attdRestMap.get("code");
 		try {
 			response.setContentType("application/json; charset=UTF-8");
+			if(code!="") {
 			ArrayList<RestAttdTO> restAttdList = attdServiceFacade.findRestAttdList(empCode, startDate, endDate, code);
 				System.out.println("restAttdList: "+restAttdList);
 			modelMap.put("restAttdList", restAttdList);
 			modelMap.put("errorMsg", "success");
-			modelMap.put("errorCode", 0);
+			modelMap.put("errorCode", 0);}
 		} catch (Exception ioe) {
 			
 			modelMap.clear();
