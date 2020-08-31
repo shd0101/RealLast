@@ -20,3 +20,4 @@ export { default as MonthSalaryManage } from "ERP/HR/Page/MonthSalary/MonthSalar
 export { default as CloseSalaryContainer } from "ERP/HR/Page/SalaryManage/CloseSalaryContainer"; //2020-08-20 63기 손유찬수정 --월급여 조회마감
 export { default as BaseExtSalManage } from "ERP/HR/Page/BaseExtSalManage/BaseExtSalManage"; //2020-08-22 63기 손유찬 -- 초과수당관리
 export { default as BaseDeductionManage } from "ERP/HR/Page/BaseDeductionManage/BaseDeductionManage"; //2020-08-26 63기 손유찬 -- 공제기준관리
+export { default as BaseSalaryManage } from "ERP/HR/Page/BaseSalaryManage/BaseSalaryManage"; //2020-08-26 63기 손유찬 -- 급여기준관리

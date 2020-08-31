@@ -69,7 +69,17 @@ const updateOnClick = event => {
         alert("수정 된 내역이 없습니다.");
     }
 ;
+// 그리드 숫자형식 변경 함수 시작
+function currencyFormatter(params) {
+  return formatNumber(params.value) + " 원";
+}
 
+function formatNumber(number) {
+  // this puts commas into the number eg 1000 goes to 1,000,
+  // i pulled this from stack overflow, i have no idea how it works
+  return Math.floor(number).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+// 그리드 숫자형식 변경 함수 끝
 
   //AG 그리드의 헤드
   const state = {
@@ -77,7 +87,7 @@ const updateOnClick = event => {
       { headerName: "부서명", field: "deptName" },
       { headerName: "직급코드", field: "positionCode" },
       { headerName: "직급명", field: "positionName" },
-      { headerName: "기본급", field: "baseSalary",editable:true},
+      { headerName: "기본급", field: "baseSalary",editable:true , valueFormatter: currencyFormatter},
       { headerName: "호봉인상율", field: "hobongRatio", editable:true},
 
     ],

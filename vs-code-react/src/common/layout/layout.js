@@ -206,6 +206,13 @@ function Layout(props) {
               component={hr.BaseDeductionManage}
             />{" "}
             {/*******************2020-08-26 손유찬 종료*************************/}
+            {/*******************2020-08-26 손유찬 시작*************************/}
+            <Route
+              exact
+              path="/app/hr/salary/baseSalaryManage"
+              component={hr.BaseSalaryManage}
+            />{" "}
+            {/*******************2020-08-26 손유찬 종료*************************/}
 
 
 
