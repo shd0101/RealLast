@@ -12,8 +12,6 @@ import InputIcon from "@material-ui/icons/Input";
 const BaseExtSalManage = () => {
 
     const [dataList, setDataList] = useState([]);
-    const [data, setData] = useState("");
-    const [gridEvent, setGridEvent] = useState();
 
     useEffect(() => {
         axios
@@ -66,6 +64,7 @@ const updateOnClick = event => {
 
         );
         alert("성공적으로 수정 되었습니다.");
+        window.location.reload(true);
 
     } else 
         alert("수정 된 내역이 없습니다.");
@@ -116,7 +115,6 @@ const updateOnClick = event => {
             onCellEditingStopped={CellEditingStopped}
             onGridReady={event => {
               event.api.sizeColumnsToFit();
-              setGridEvent(event);
             }}
           ></AgGridReact>
           <br/>

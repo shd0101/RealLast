@@ -93,8 +93,8 @@ public class SalaryApplicationServiceImpl implements SalaryApplicationService{
 	@Override
 	public void modifyBaseSalaryList(ArrayList<BaseSalaryTO> baseSalaryList) {
 		for(BaseSalaryTO baseSalary : baseSalaryList){
-			if(baseSalary.getStatus().equals("update"))
-				baseSalaryDAO.updateBaseSalary(baseSalary);
+			if(baseSalary.getStatus().equals("update")) {
+				baseSalaryDAO.updateBaseSalary(baseSalary);}
 			
 			if(baseSalary.getStatus().equals("insert")) {
 				switch(baseSalary.getPositionName()) {
@@ -120,10 +120,11 @@ public class SalaryApplicationServiceImpl implements SalaryApplicationService{
 	            default: baseSalary.setPositionCode("X"); break;
 				}
 				
-					if(baseSalary.getPositionName()=="X" || baseSalary.getDeptName()=="X")
-					baseSalaryDAO.insertPosition(baseSalary);
-					else return;
-				}
+					if(baseSalary.getPositionName()=="X" || baseSalary.getDeptName()=="X") {
+						return;}
+					else { baseSalaryDAO.insertPosition(baseSalary);}
+			}
+					
 			if(baseSalary.getStatus().equals("delete"))
 				baseSalaryDAO.deletePosition(baseSalary);
 		}

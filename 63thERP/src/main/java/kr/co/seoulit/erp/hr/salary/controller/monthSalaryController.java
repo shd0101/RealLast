@@ -116,8 +116,8 @@ public class monthSalaryController {
 		HashMap<String, Object> monthSalary = null;
 		modelMap = new ModelMap();
 		try {
-		//	request.setCharacterEncoding("UTF-8");
-		//	response.setContentType("application/json; charset=UTF-8");
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("application/json; charset=UTF-8");
 			monthSalary = salaryServiceFacade.CloseSalary(applyYearMonth, deptCode);
 			System.out.println("가져온값 "+monthSalary);
 			modelMap.put("monthSalary", monthSalary);

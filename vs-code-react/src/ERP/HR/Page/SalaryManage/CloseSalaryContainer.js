@@ -156,7 +156,7 @@ const CloseSalaryContainer = props => {
     //유효성 검사는 왜 이방법밖에 생각이 안나지
     if (empCodes !== undefined) {
       if (empCodes.length != 0) {
-        empcode1 = empCodes.filter(empCode2 => empCode2.finalizeStatus === "N");
+        empcode1 = empCodes.filter(empCode2 => empCode2.finalizeStatus === "Y");
         if (empcode1[0] === undefined) {
           const dummy = empCodes.map(emp =>
             alert(emp.empCode + "가 이미 마감되어있습니다"),
@@ -165,6 +165,7 @@ const CloseSalaryContainer = props => {
           console.log("마감함수작동"+empcode1);
 
           closeSalaryWithSlipRequest({ empcode1 }); //마감 함수를 부른다.
+          alert("월 급여 마감을 완료했습니다.");
         }
       } else {
         alert("마감할 값을 선택해주세요");

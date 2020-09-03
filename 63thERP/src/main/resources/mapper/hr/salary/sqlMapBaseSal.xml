@@ -34,8 +34,9 @@
 	</update>
 <!-- //****************************************************2020-08-28 63기 손유찬 ********************************* ********************** -->
 	<insert id="insertPosition" parameterType="kr.co.seoulit.erp.hr.salary.to.BaseSalaryTO">
-		INSERT INTO POSITION( WORKPLACE_CODE, POSITION_CODE, POSITION_NAME, DEPT_CODE, BASE_SALARY, HOBONG_RATIO) VALUES(
-		#{workPlaceCode}
+		INSERT INTO POSITION( DESCRIPTION, WORKPLACE_CODE, POSITION_CODE, POSITION_NAME, DEPT_CODE, BASE_SALARY, HOBONG_RATIO) VALUES(
+		'' 
+		,#{workPlaceCode}
 		, #{positionCode}
 		, #{positionName}
 		, #{deptCode}
@@ -48,6 +49,8 @@
 		DELETE FROM POSITION
 		WHERE POSITION_CODE = #{positionCode} 
 		AND POSITION_NAME = #{positionName}
+		AND DEPT_CODE = #{deptCode}
+		AND HOBONG_RATIO = #{hobongRatio}
 	</delete>
 <!-- //****************************************************2020-08-28 63기 손유찬 ********************************* ********************** -->	
 </mapper>

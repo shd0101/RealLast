@@ -8,11 +8,14 @@ import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import Button from "@material-ui/core/Button";
 import { FormControl,AppBar,Toolbar,Typography,} from "@material-ui/core";
 import InputIcon from "@material-ui/icons/Input";
-
+//수정된 값을 담을 배열
+let list = [];
+let lastCell=[];
+let count = 0; 
+//콘솔에 찍어보려고 선언한 count 
 const BaseDeductionManage = () => {
 
     const [dataList, setDataList] = useState([]);
-    const [data, setData] = useState("");
     const [gridEvent, setGridEvent] = useState();
 
 
@@ -29,11 +32,7 @@ const BaseDeductionManage = () => {
             });
     }, []);
 
-//수정된 값을 담을 배열
-let list = [];
-let lastCell=[];
-let count = 0; 
-//콘솔에 찍어보려고 선언한 count 
+
 //그리드 수정이 끝난후 발생하는 이벤트의 콜백메서드
 function CellEditingStopped(row) {
   if(row.data.status!='insert'){
@@ -47,7 +46,11 @@ function CellEditingStopped(row) {
   console.log(list[count].hobongRatio);
   console.log(list[count].status); 
     count++;
-  }else     list.push(row.data);
+  }else {    
+    if(row.data.deptName!=='부서명 입력'&&row.data.positionName!=='직급명 입력'&&
+       row.data.baseSalary!=='0000'&&row.data.hobongRatio!=='인상율 입력')
+        list.push(row.data);
+  }
 };
 
 //그리드에 줄 생성 메서트
@@ -83,7 +86,8 @@ if (list) {
     },
               );
         alert("성공적으로 수정 되었습니다.");
-
+        window.location.reload(true);
+        
     } else 
         alert("수정 된 내역이 없습니다.");
     }
