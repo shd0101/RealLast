@@ -21,14 +21,14 @@ export const EMP_UPDATE_FAILURE = "src/ERP/HR/Saga/Saga/EMP_UPDATE_FAILURE";
 
 //*************************  유주 담당  종료********************************** */
 
-//*****************************월근태*****************************/
+//*****************************재영 월근태 관리*****************************/
 export const SEARCH_MONTH_ATTD_LIST_REQUEST = "src/ERP/HR/Saga/Saga/SEARCH_MONTH_ATTD_LIST_REQUEST";
 export const SEARCH_MONTH_ATTD_LIST_SUCCESS = "src/ERP/HR/Saga/Saga/SEARCH_MONTH_ATTD_LIST_SUCCESS";
 export const MONTH_ATTD_LIST_UPDATE = "src/ERP/HR/Saga/Saga/MONTH_ATTD_LIST_UPDATE";
 export const MONTH_ATTD_LIST_UPDATE_SEUCCESS = "src/ERP/HR/Saga/Saga/MONTH_ATTD_LIST_UPDATE_SEUCCESS";
 export const MONTH_ATTD_LIST_FAILURE= "src/ERP/HR/Saga/Saga/MONTH_ATTD_LIST_FAILURE";
 
-
+//***************************** 재영 일근태관리 ***************************/
 export const DAY_ATTD_LIST_UPDATE = "src/EMP/HR/Saga/Saga/DAY_ATTD_LIST_UPDATE"
 export const DAY_ATTD_LIST_UPDATE_SEUCCESS = "src/EMP/HR/Saga/Saga/DAY_ATTD_LIST_UPDATE_SEUCCESS"
 
@@ -107,6 +107,11 @@ export const SELECT_DAY_ATTD_SUCCESS =
   "src/ERP/HR/Saga/Saga/SELECT_DAY_ATTD_SUCCESS";
 export const SELECT_DAY_ATTD_FAILURE =
   "src/ERP/HR/Saga/Saga/SELECT_DAY_ATTD_FAILURE";  
+export const DELETE_DAY_ATTD_START =
+  "src/ERP/HR/Saga/Saga/DELETE_DAY_ATTD_START";
+export const DELETE_DAY_ATTD_FAILURE =
+  "src/ERP/HR/Saga/Saga/DELETE_DAY_ATTD_FAILURE";
+
 //============================== 일근태 기록/조회 재영 종료 20.08.27===============================================//
 
 //*************************외출 및 조퇴 신청 시작 _준서 _20.08.24 *************************

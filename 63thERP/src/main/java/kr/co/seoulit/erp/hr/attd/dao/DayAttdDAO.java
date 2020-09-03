@@ -16,4 +16,6 @@ public interface DayAttdDAO {
 	public void insertDayAttd(DayAttdTO dayAttd);
 
 	public HashMap<String,Object> batchInsertDayAttd(HashMap<String, Object> map);
+	
+	public void deleteDayAttd(DayAttdTO dayAttd);
 }

@@ -19,7 +19,7 @@ public interface AttdServiceFacade {
 	public ArrayList<RestAttdTO> findRestAttdListByDept(HashMap<String,String> attdApplMap);
 	public ArrayList<RestAttdTO> findRestAttdListByToday(String empCode, String toDay);
 	public void registRestAttd(HashMap<String, String> attdRestMap);
-	public void modifyRestAttdList(HashMap<String,String> attdApplMap);	// °áÀç½ÂÀÎ°ü¸® ½ÃÀÛ _2020.08.27 _ÁØ¼­
+	public void modifyRestAttdList(HashMap<String,String> attdApplMap);	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ _2020.08.27 _ï¿½Ø¼ï¿½
 
 	public ArrayList<DayAttdMgtTO> findDayAttdMgtList(String applyDay);
 	public void modifyDayAttdMgtList(ArrayList<DayAttdMgtTO> dayAttdMgtList);
@@ -31,4 +31,5 @@ public interface AttdServiceFacade {
 	   public ArrayList<DayAttdMgtTO> dayDeadlineRegister(HashMap<String, Object> map);//ï¿½Îºï¿½
 	public void dayDeadlineCancel(HashMap<String, Object> map);
 	public ArrayList<HrDetailCodeTO> searchRestAttendanceType();
+	public void deleteDayAttd(ArrayList<DayAttdTO> dayAttdData);
 }

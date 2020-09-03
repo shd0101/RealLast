@@ -35,6 +35,7 @@ const HrReducer = (state = initialState, action) => {
         ...state,
         attdData:[],
       };
+    //=====================재영 일근태 조회/기록==================//
     case types.INSERT_DAY_ATTD_FAILURE:
       return {
         ...state,
@@ -48,7 +49,12 @@ const HrReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-
+    case types.DELETE_DAY_ATTD_FAILURE:
+      return {
+        ...state,
+        errorMsg: action.payload,
+      }
+    //=====================재영 일근태 조회/기록==================//
     case types.SALARY_LIST_SUCCESS:
       return {
         ...state,

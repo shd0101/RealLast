@@ -31,4 +31,5 @@ public interface AttdApplicationService {
 	   public HashMap<String, Object> findDayAttdMgtList(HashMap<String, Object> map); //占쏙옙占싸븝옙
 	public void dayDeadlineCancel(HashMap<String, Object> map);//占싸븝옙
 	public ArrayList<HrDetailCodeTO> searchRestAttendanceType();//占싸븝옙
+	public void deleteDayAttd(ArrayList<DayAttdTO> dayAttdData);
 }

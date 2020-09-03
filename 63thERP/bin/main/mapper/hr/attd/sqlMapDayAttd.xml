@@ -39,6 +39,12 @@
       )
    </insert>
    
+   <delete id="deleteDayAttd" parameterType="kr.co.seoulit.erp.hr.attd.to.DayAttdTO">
+   		DELETE FROM DAY_ATTD 
+		WHERE EMP_CODE = #{empCode}
+		AND DAY_ATTD_CODE = #{dayAttdCode}
+   </delete>
+   
 
    
    <!-- 여기여기 -->

@@ -27,6 +27,10 @@ const DayAttdGrid = (props) =>{
     const attdTypeName = useInput();
     //출퇴근시간
     const [time, setTime] = useState(thisTime);
+
+    const [delData, setDelData] = useState([]);
+
+    const [deleteGridList, setDeleteGridList] = useState(null); 
     
 
     const column = {
@@ -37,6 +41,9 @@ const DayAttdGrid = (props) =>{
           headerName: "적용일",
           field: "applyDay",
           sortable: true,
+          headerCheckboxSelection: true,
+          headerCheckboxSelectionFilteredOnly: true,
+          checkboxSelection: true,
         }, //체크박스창
         { headerName: "근태구분코드", field: "attdTypeCode", hide: true },
         { headerName: "근태구분명", field: "attdTypeName" },
@@ -61,6 +68,23 @@ const DayAttdGrid = (props) =>{
       if(!!props.attdData){
         alert(attdTypeName.value+' 기록이 완료 되었습니다.')
       }
+    }
+
+    const onRowSelected = (e) => {
+        setDelData(
+          e.api.getSelectedRows()
+          )
+    }
+
+    const deleteDayAttd = () => {
+      console.log(delData)
+      if(delData.length===0){
+        alert('삭제할 항목을 체크해 주세요');
+      }else{
+      props.deleteDayAttdStart({data: delData});      
+      alert('선택한 항목이 삭제 되었습니다.');     
+      deleteGridList.updateRowData({ remove: delData }); 
+    }
     }
 
     return (
@@ -145,6 +169,15 @@ const DayAttdGrid = (props) =>{
                 </Toolbar>
               </AppBar>
               <br/>
+              <div align='center'>              
+              <Button className={classes.button}
+               variant="contained" 
+               color="primary"
+               onClick={deleteDayAttd}
+               >
+              삭제하기
+              </Button>
+              </div>
               <br/>
               <div
                 className={"ag-theme-material"}
@@ -155,7 +188,7 @@ const DayAttdGrid = (props) =>{
                 enableRangeSelection="true"        
                 rowStyle={{ "text-align": "center" }}
                 style={{
-                  height: "400px",
+                  height: "500px",
                   width: "100%"
                 }}
                 cellStyle={{ textAlign: "center" }}
@@ -163,7 +196,13 @@ const DayAttdGrid = (props) =>{
                 <AgGridReact 
                 columnDefs={column.columnDefs}
                 rowData={props.attdData}
-                getRowStyle={function (param) { return { "text-align": "center" }; }} 
+                getRowStyle={function (param) { return { "text-align": "center" }; }}
+                onRowSelected={onRowSelected}
+                onGridReady={(event) => {
+                  event.api.sizeColumnsToFit();
+                  setDeleteGridList(event.api);
+                }}
+                rowSelection="multiple" //여러개선택가능 
                  />
               </div>
             </Paper>

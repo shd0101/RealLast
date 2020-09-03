@@ -52,13 +52,13 @@ private AttdApplicationService attdApplicationService;
 	public void registRestAttd(HashMap<String, String> attdRestMap) {
 			attdApplicationService.registRestAttd(attdRestMap);
 		}
-//	********************* °áÀç½ÂÀÎ°ü¸® ½ÃÀÛ _2020.08.27 _ÁØ¼­ *********************
+//	********************* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ _2020.08.27 _ï¿½Ø¼ï¿½ *********************
 	@Override
 	public void modifyRestAttdList(HashMap<String,String> attdApplMap) {
 		System.out.println("ffffffffffffffffffffffff");
 			attdApplicationService.modifyRestAttdList(attdApplMap);
 		}
-//	********************* °áÀç½ÂÀÎ°ü¸® Á¾·á _2020.08.27 _ÁØ¼­ *********************
+//	********************* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ _2020.08.27 _ï¿½Ø¼ï¿½ *********************
 	@Override
 	public ArrayList<DayAttdMgtTO> findDayAttdMgtList(String applyDay) {
 			ArrayList<DayAttdMgtTO> dayAttdMgtList = attdApplicationService.findDayAttdMgtList(applyDay);
@@ -113,6 +113,12 @@ private AttdApplicationService attdApplicationService;
 	public ArrayList<HrDetailCodeTO> searchRestAttendanceType() {
 		// TODO Auto-generated method stub
 		return attdApplicationService.searchRestAttendanceType();
+	}
+	
+	//ì¬ì˜ ì¼ê·¼íƒœ ê¸°ë¡ì¡°íšŒ ì‚­ì œ
+	@Override
+	public void deleteDayAttd(ArrayList<DayAttdTO> dayAttdData) {
+			attdApplicationService.deleteDayAttd(dayAttdData);
 	}
 	   
 

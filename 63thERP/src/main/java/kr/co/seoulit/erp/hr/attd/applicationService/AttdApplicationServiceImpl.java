@@ -301,5 +301,15 @@ public class AttdApplicationServiceImpl implements AttdApplicationService{
 		// TODO Auto-generated method stub
 		return restAttdDAO.selectRestDatailCodeName();
 	}
+	
+	//재영 일근태 기록조회 삭제
+	@Override
+	public void deleteDayAttd(ArrayList<DayAttdTO> dayAttdData) {
+		// TODO Auto-generated method stub
+		for(DayAttdTO dayAttd : dayAttdData) {
+		dayAttdDAO.deleteDayAttd(dayAttd);
+		}
+		
+	}
 
 }

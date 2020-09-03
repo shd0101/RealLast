@@ -57,5 +57,14 @@ public class DayAttdController{
 		return map;
 
 	}
+	
+	@RequestMapping(value="/attendance/deleteDayAttendance", method=RequestMethod.POST)
+	public void deleteDayAttd(@RequestBody Map<String, ArrayList<DayAttdTO>> data) {
+	
+		ArrayList<DayAttdTO> dayAttdData = data.get("dayAttdData");
+		System.out.println(dayAttdData);
+		attdServiceFacade.deleteDayAttd(dayAttdData);
+						
+	}	
 }
 

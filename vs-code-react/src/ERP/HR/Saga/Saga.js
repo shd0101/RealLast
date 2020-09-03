@@ -268,7 +268,8 @@ function* registerEmp(action) {
         url:  "http://localhost:8282/hr/registEmployee.do",
         params : {data: action.data},
       })
-      
+      alert('사원 등록에 성공 했습니다.');
+      window.location.reload(true);
   } catch (e) {
     console.log(e.response);
     yield put({ type: types.EMP_REGISTER_FAILURE });
@@ -317,6 +318,22 @@ function* DayAttdSSaga(action) {
   }
 }
 //**************************************2020-08-27 재영 일근태조회 사가**************************************************
+
+//**********************************2020-09-03 재영 일근태 삭제 시작 *******************************************/
+function* deleteAttdSaga(action) {  
+  console.log('ddddddddddddddddddddddddd'+action.payload.data)
+  try {        
+      yield axios.post(
+        "http://localhost:8282/hr/insa/attendance/deleteDayAttendance",
+        { 
+          dayAttdData: action.payload.data
+        },
+        { headers: { "Content-Type": "application/json" } },
+      );
+  } catch (error) {
+    yield put(actions.deleteDayAttdFailure(error.message) );
+  }
+}
 
 
 //=================================일근태 관리 원구 종료 ======================================//
@@ -443,6 +460,9 @@ export function* onInsertDayAttd() {
 export function* onSelectDayAttd() {
   yield takeLatest(types.SELECT_DAY_ATTD_START, DayAttdSSaga);
 }
+export function* onDeleteDayAttd() {
+  yield takeLatest(types.DELETE_DAY_ATTD_START, deleteAttdSaga);
+}
 
 export default function* HrSaga() {
   yield all([
@@ -457,6 +477,7 @@ export default function* HrSaga() {
     call(onInsertDayAttd), // 원구
     call(onSelectDayAttd), // 원구
     call(onRestAttdSaga),    // 준서
-    call(onAttdApplSaga)    // 준서
+    call(onAttdApplSaga),    // 준서
+    call(onDeleteDayAttd), // 재영
   ]);
 }

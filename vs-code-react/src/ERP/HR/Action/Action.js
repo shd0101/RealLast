@@ -12,6 +12,9 @@ export const selectDayAttdSuccess = createAction(types.SELECT_DAY_ATTD_SUCCESS);
 export const selectDayAttdFailure = createAction(types.SELECT_DAY_ATTD_FAILURE);
 export const insertDayAttdStart = createAction(types.INSERT_DAY_ATTD_START);
 export const insertDayAttdSuccess = createAction(types.INSERT_DAY_ATTD_SUCCESS);
+export const deleteDayAttdStart = createAction(types.DELETE_DAY_ATTD_START);
+export const deleteDayAttdFailure = createAction(types.DELETE_DAY_ATTD_FAILURE);
+
 //========================= 재영 일근태 조회/기록 2020-08-27 종료======================//
 
 export const insertDayAttdFailure = createAction(types.INSERT_DAY_ATTD_FAILURE);
