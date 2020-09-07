@@ -46,14 +46,14 @@ export const SearchDayAttdListRequest = createAction(types.SEARCH_DAY_ATTD_LIST_
 export const updateDayAttdList = createAction(types.DAY_ATTD_LIST_UPDATE);
 export const updateDayAttdListSuccess = createAction(types.DAY_ATTD_LIST_UPDATE_SEUCCESS);
 
-//************************* 결제승인관리 시작 _준서 *************************
+//************************* 결제승인관리 시작 _재영 *************************
 export const searchAttdApplList = createAction(types.SEARCH_ATTD_APPL_REQUEST);
 export const updateAttdApplList = createAction(types.UPDATE_ATTD_APPL_REQUEST);
 export const searchAttdApplSuccess =createAction(types.SEARCH_ATTD_APPL_SUCCESS);
 export const searchAttdApplFailure =createAction(types.SEARCH_ATTD_APPL_FAILURE);
 export const updateAttdApplSuccess =createAction(types.UPDATE_ATTD_APPL_SUCCESS);
 export const updateAttdApplFailure =createAction(types.UPDATE_ATTD_APPL_FAILURE);
-//************************* 결제승인관리 종료 _준서 *************************
+//************************* 결제승인관리 종료 _재영 *************************
 
 
 

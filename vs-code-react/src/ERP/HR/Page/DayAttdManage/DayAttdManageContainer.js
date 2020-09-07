@@ -30,7 +30,7 @@ const mapStateToProps=(state) =>{
     return{
         errorCode: state.HrReducer.errorCode,
         errorMsg: state.HrReducer.errorMsg,
-        dayAttdMgtList: state.HrReducer.dayAttdMgtList,
+        dayAttdMgtList: state.HrReducer.dayAttdMgtList
     };
 }
 

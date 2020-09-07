@@ -19,7 +19,7 @@ public interface AttdServiceFacade {
 	public ArrayList<RestAttdTO> findRestAttdListByDept(HashMap<String,String> attdApplMap);
 	public ArrayList<RestAttdTO> findRestAttdListByToday(String empCode, String toDay);
 	public void registRestAttd(HashMap<String, String> attdRestMap);
-	public void modifyRestAttdList(HashMap<String,String> attdApplMap);	// ������ΰ��� ���� _2020.08.27 _�ؼ�
+	public void modifyRestAttdList(HashMap<String,ArrayList<RestAttdTO>> attdApplMap);	// ������ΰ��� ���� _2020.08.27 _�ؼ�
 
 	public ArrayList<DayAttdMgtTO> findDayAttdMgtList(String applyDay);
 	public void modifyDayAttdMgtList(ArrayList<DayAttdMgtTO> dayAttdMgtList);

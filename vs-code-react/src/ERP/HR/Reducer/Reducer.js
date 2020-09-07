@@ -151,19 +151,20 @@ const HrReducer = (state = initialState, action) => {
     };
 //*************************외출 및 조퇴 신청 종료 _준서 _20.08.25 *************************
 
- //************************* 결제승인관리 시작 _준서 *************************
+ //************************* 결제승인관리 시작 재영 20-09-04 *************************
  case types.SEARCH_ATTD_APPL_SUCCESS:
+   console.log('dddddddddddddddddddddddddddddddddddddd'+JSON.stringify(action.payload))
     return {
       ...state,
-      searchAttdApplList: action.data.searchAttdApplList,
+      searchAttdApplList: action.payload,
+      flag:false,
   };
   case types.UPDATE_ATTD_APPL_SUCCESS:
     return {
       ...state,
-      updateAttdApplList: [],
+      flag: true,
   };
- //************************* 결제승인관리 종료 _준서 *************************
-
+ //************************* 결제승인관리 종료 재영 20-09-04 *************************
  //===================인봉=====================================일근태관리//===================인봉=====================================일근태관리
     case types.SEARCH_DAY_ATTD_LIST_All:
       return {

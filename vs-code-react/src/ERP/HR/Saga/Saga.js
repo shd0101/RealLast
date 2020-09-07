@@ -371,35 +371,54 @@ function* restAttdSaga(action) {
 }
 // *********************** 외출 조퇴 신청 종료 _준서 ***********************
 
-// *********************** 결재승인관리 시작 _준서 ***********************
-function* attdApplSaga(action) {
+// *********************** 결재승인관리 확정 시작 _재영 2020-09-04 ***********************
+function* updateAttdApplSaga(action) {
   console.log("HR Saga Func_attdApplSaga")
   console.log(action);
   try {
-    const { data } = yield axios({
-      method: "post",
-      url: "http://localhost:8282/hr/attendance/attendanceApploval.do",
-      params: {
-          empCode: action.data.empCode,          
-          requestDate: action.data.requestDate,          
-          applovalStatus: action.data.applovalStatus,
-          rejectCause: action.data.rejectCause
+    yield axios.post(
+      "http://localhost:8282/hr/attendance/attendanceApploval.do",
+      {
+        checkData: action.payload.data
       },
-    })
-    .then(function(response) { alert("결재완료"); })
-    .catch(function(error) { alert("결재실패") });
-    yield put(restAttdSuccess(data));
+      { headers: { "Content-Type": "application/json" } },
+    )   
+    yield put(actions.updateAttdApplSuccess());
   } catch (e) {
-    yield put(restAttdFailure(e.message));
+    yield put(actions.updateAttdApplFailure(e.message));
   }
 }
+// *********************** 결재승인관리 확정 종료 _재영 2020-09-04***********************
+//************************ 결제 승인 관리 조회 _ 재영 2020-09-04 ******************//
+function* searchAttdAppl(action) {
+  console.log(action);
+  try {
+    if (action.type === types.SEARCH_ATTD_APPL_REQUEST) {
+      const { data } = yield axios.get(
+        "http://localhost:8282/hr/attendance/attendanceApploval.do",
+        {
+          params: {
+            deptCode: action.payload.deptCode,
+            startDate: action.payload.startDate,
+            endDate: action.payload.endDate
+          },
+        },
+      );
+        console.log('ddddddddddddddddddddddd'+JSON.stringify(data));
+      yield put(actions.searchAttdApplSuccess(data.restAttdList));
+    }
+  } catch (error) {
+    yield put(actions.selectDayAttdFailure(error.message));
+  }
+}
+
 // *********************** 결재승인관리 종료 _준서 ***********************
 
-// *********************** 결재승인관리 시작 _준서 ***********************
+// *********************** 결재승인관리 확정 시작 _재영 ***********************
 export function* onAttdApplSaga(){
-  yield takeLatest(types.UPDATE_ATTD_APPL_REQUEST, attdApplSaga);
+  yield takeLatest(types.UPDATE_ATTD_APPL_REQUEST, updateAttdApplSaga);
 }
-// *********************** 결재승인관리 종료 _준서 ***********************
+// *********************** 결재승인관리 확정 종료 _재영***********************
 
 // *********************** 외출 조퇴 신청 시작 _준서 ***********************
 export function* onRestAttdSaga(){
@@ -464,6 +483,10 @@ export function* onDeleteDayAttd() {
   yield takeLatest(types.DELETE_DAY_ATTD_START, deleteAttdSaga);
 }
 
+export function* onAttdAppl(){
+  yield takeLatest(types.SEARCH_ATTD_APPL_REQUEST, searchAttdAppl);
+}
+
 export default function* HrSaga() {
   yield all([
     call(onSalaryReqeust), //월급여 조회 지원
@@ -479,5 +502,6 @@ export default function* HrSaga() {
     call(onRestAttdSaga),    // 준서
     call(onAttdApplSaga),    // 준서
     call(onDeleteDayAttd), // 재영
+    call(onAttdAppl) //재영
   ]);
 }

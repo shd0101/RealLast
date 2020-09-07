@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,7 @@ public class AttdApplovalController {
 	private AttdServiceFacade attdServiceFacade;
 	private ModelMap modelMap = new ModelMap();
 
-//	********************* °áÀç½ÂÀÎ°ü¸® ½ÃÀÛ _2020.08.28 _ÁØ¼­ *********************
+//	********************* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ _2020.08.28 _ï¿½Ø¼ï¿½ *********************
 	@RequestMapping(value="/attendance/attendanceApploval.do",method=RequestMethod.GET)
 	public ModelMap findRestAttdListByDept(@RequestParam HashMap<String,String> attdApplMap, HttpServletResponse response){
 		System.out.println("<< findRestAttdListByDept >>");
@@ -46,18 +47,15 @@ public class AttdApplovalController {
 		} 
 		return modelMap;
 	}
-//	********************* °áÀç½ÂÀÎ°ü¸® Á¾·á _2020.08.28 _ÁØ¼­ *********************
+//	********************* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ _2020.08.28 _ï¿½Ø¼ï¿½ *********************
 
-//	********************* °áÀç½ÂÀÎ°ü¸® ½ÃÀÛ _2020.08.27 _ÁØ¼­ *********************
+//	********************* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_2020.09.04 _ì¬ì˜ *********************
 	@RequestMapping(value="/attendance/attendanceApploval.do",method=RequestMethod.POST)
-	public ModelMap modifyRestAttdList(@RequestParam HashMap<String,String> attdApplMap, HttpServletResponse response){
+	public ModelMap modifyRestAttdList(@RequestBody HashMap<String,ArrayList<RestAttdTO>> data){
 		System.out.println("<< modifyRestAttdList >>");
-		System.out.println("attdRestMap: "+attdApplMap);
-		
+		System.out.println("attdRestMap: "+data);
 		try {
-			response.setContentType("application/json; charset=UTF-8");
-			attdServiceFacade.modifyRestAttdList(attdApplMap);
-			System.out.println("cccccccccccccccccccccccccccc");
+			attdServiceFacade.modifyRestAttdList(data);
 		} catch (Exception ioe) {
 			modelMap.clear();
 			modelMap.put("errorMsg", ioe.getMessage());
@@ -65,4 +63,4 @@ public class AttdApplovalController {
 		return modelMap;
 	} 
 }
-//********************* °áÀç½ÂÀÎ°ü¸® Á¾·á _2020.08.27 _ÁØ¼­ *********************
+//********************* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_2020.09.04 _ì¬ì˜ *********************

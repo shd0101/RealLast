@@ -52,13 +52,12 @@ private AttdApplicationService attdApplicationService;
 	public void registRestAttd(HashMap<String, String> attdRestMap) {
 			attdApplicationService.registRestAttd(attdRestMap);
 		}
-//	********************* ������ΰ��� ���� _2020.08.27 _�ؼ� *********************
+	//********************* ������_2020.09.04 _재영 *********************
 	@Override
-	public void modifyRestAttdList(HashMap<String,String> attdApplMap) {
-		System.out.println("ffffffffffffffffffffffff");
+	public void modifyRestAttdList(HashMap<String,ArrayList<RestAttdTO>> attdApplMap) {
 			attdApplicationService.modifyRestAttdList(attdApplMap);
 		}
-//	********************* ������ΰ��� ���� _2020.08.27 _�ؼ� *********************
+	//********************* ������_2020.09.04 _재영 *********************
 	@Override
 	public ArrayList<DayAttdMgtTO> findDayAttdMgtList(String applyDay) {
 			ArrayList<DayAttdMgtTO> dayAttdMgtList = attdApplicationService.findDayAttdMgtList(applyDay);

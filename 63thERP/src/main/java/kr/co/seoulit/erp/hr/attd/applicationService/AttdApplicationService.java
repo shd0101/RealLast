@@ -14,7 +14,6 @@ public interface AttdApplicationService {
 	public HashMap<String,Object> registDayAttd(DayAttdTO dayAttd);
 //	public void removeDayAttdList(HashMap<String, String> params);  
 	public void insertDayAttd(DayAttdTO dayAttd); //test
-	//�뀛�뀞�뀪�뀭modifyMonthAttdMgtListmodifyMonthAttdMgtList
 	public ArrayList<DayAttdMgtTO> findDayAttdMgtList(String applyDay);
 	public void modifyDayAttdMgtList(ArrayList<DayAttdMgtTO> dayAttdMgtList);
 	public ArrayList<MonthAttdMgtTO> findMonthAttdMgtList(String applyYearMonth);
@@ -24,7 +23,7 @@ public interface AttdApplicationService {
 	public ArrayList<RestAttdTO> findRestAttdListByDept(HashMap<String,String> attdApplMap);
 	public ArrayList<RestAttdTO> findRestAttdListByToday(String empCode, String toDay);
 	public void registRestAttd(HashMap<String, String> attdRestMap);
-	public void modifyRestAttdList(HashMap<String,String> attdApplMap);	// 결재승인관리 시작 _2020.08.27 _준서
+	public void modifyRestAttdList(HashMap<String,ArrayList<RestAttdTO>> attdApplMap);	// 결재승인관리 시작 _2020.08.27 _준서
 //   public void removeRestAttdList(ArrayList<RestAttdTO> restAttdList);
 	   public ArrayList<DayAttdMgtTO> findDayAttdMgtListAll(HashMap<String, Object> map);//占쏙옙占싸븝옙
 	   public ArrayList<DayAttdMgtTO> dayDeadlineRegister(HashMap<String, Object> map);//占쏙옙占싸븝옙
