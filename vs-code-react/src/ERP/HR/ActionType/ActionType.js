@@ -120,11 +120,11 @@ export const REST_ATTD_SUCCESS = "src/ERP/HR/Saga/Saga/REST_ATTD_SUCCESS";
 export const REST_ATTD_FAILURE = "src/ERP/HR/Saga/Saga/REST_ATTD_FAILURE";
 //*************************외출 및 조퇴 신청 종료 _준서 _20.08.24 *************************
 
-//************************* 결제승인관리 시작 _준서 *************************
+//************************* 결제승인관리 시작 _재영 *************************
 export const SEARCH_ATTD_APPL_REQUEST = "src/ERP/HR/Saga/Saga/SEARCH_ATTD_APPL_REQUEST";
 export const UPDATE_ATTD_APPL_REQUEST = "src/ERP/HR/Saga/Saga/UPDATE_ATTD_APPL_REQUEST";
 export const SEARCH_ATTD_APPL_SUCCESS = "src/ERP/HR/Saga/Saga/SEARCH_ATTD_APPL_SUCCESS";
 export const SEARCH_ATTD_APPL_FAILURE = "src/ERP/HR/Saga/Saga/SEARCH_ATTD_APPL_FAILURE";
 export const UPDATE_ATTD_APPL_SUCCESS = "src/ERP/HR/Saga/Saga/UPDATE_ATTD_APPL_SUCCESS";
 export const UPDATE_ATTD_APPL_FAILURE = "src/ERP/HR/Saga/Saga/UPDATE_ATTD_APPL_FAILURE";
-//************************* 결제승인관리 종료 _준서 *************************
+//************************* 결제승인관리 종료 _재영 *************************

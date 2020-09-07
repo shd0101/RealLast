@@ -157,11 +157,14 @@
 		
 	<!--**************************************************** 결재승인관리 시작 2020-08-27 김준서 ******************************************** -->
 	<update id="updateRestAttd" parameterType="map">
-		UPDATE REST_ATTD SET 
-      APPLOVAL_STATUS = #{applovalStatus},
-      REJECT_CAUSE = #{rejectCause}
-      WHERE EMP_CODE = #{empCode} 
-      AND REQUEST_DATE = TO_DATE(#{requestDate},'YY/MM/DD')
+			<![CDATA[
+		UPDATE REST_ATTD SET
+		CAUSE = #{cause,jdbcType=VARCHAR}
+		, APPLOVAL_STATUS = #{applovalStatus,jdbcType=VARCHAR}
+		, REJECT_CAUSE = #{rejectCause,jdbcType=VARCHAR}
+		WHERE EMP_CODE = #{empCode,jdbcType=VARCHAR}
+		AND REST_ATTD_CODE = #{restAttdCode,jdbcType=VARCHAR}
+		]]>
 	</update>
 <!--**************************************************** 결재승인관리 종료 2020-08-27 김준서 ******************************************** -->
 	

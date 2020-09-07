@@ -1,16 +1,20 @@
 import React from "react";
-import AttdApplComp from "./AttdApplComp";
+import AttdAppl from "./AttdAppl";
 
-//************************* 결제승인관리 시작 _준서 *************************
+//************************* 결제승인관리 시작 _재영 *************************
 const AttendanceApploval = (props) => {
   console.log("<< AttendanceApploval.js >>");
   console.log(props);
   return (
     <div>
-      <AttdApplComp />
+      <AttdAppl 
+      searchAttdApplList={props.searchAttdApplList}
+      attdApplList={props.attdApplList}
+      updateAttdApplList={props.updateAttdApplList}
+      flag={props.flag} />
     </div>
   );
 };
 
 export default AttendanceApploval;
-//************************* 결제승인관리 종료 _준서 *************************
+//************************* 결제승인관리 종료 _재영 *************************

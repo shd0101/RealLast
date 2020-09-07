@@ -14,10 +14,10 @@ public interface RestAttdDAO {
 	public ArrayList<RestAttdTO> selectRestAttdListByToday(String empCode, String toDay);
 	public ArrayList<RestAttdTO> selectRestAttdList(HashMap<String, Object> map);
 	public ArrayList<RestAttdTO> selectRestAttdListCode(HashMap<String, Object> map);
-	public ArrayList<RestAttdTO> selectRestAttdListByDept(HashMap<String,String> attdApplMap); // °áÀç½ÂÀÎ°ü¸® ½ÃÀÛ _2020.08.28 _ÁØ¼­
+	public ArrayList<RestAttdTO> selectRestAttdListByDept(HashMap<String,String> attdApplMap); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ _2020.08.28 _ï¿½Ø¼ï¿½
 	public ArrayList<RestAttdTO> selectRestAttdListByAllDept(String applyDay);
 	public void insertRestAttd(HashMap<String, String> attdRestMap);
-	public void updateRestAttd(HashMap<String,String> attdApplMap);	// °áÀç½ÂÀÎ°ü¸® ½ÃÀÛ _2020.08.27 _ÁØ¼­
+	public void updateRestAttd(HashMap<String,String> attdApplMap);	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ _2020.08.27 _ï¿½Ø¼ï¿½
 	public void deleteRestAttd(HashMap<String, String> params);
 	public void deleteRestAttdlist(ArrayList<RestAttdTO> restAttdList);
 	public ArrayList<HrDetailCodeTO> selectRestDatailCodeName();

@@ -1,5 +1,6 @@
 package kr.co.seoulit.erp.hr.attd.applicationService;
 
+import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -175,14 +176,34 @@ public class AttdApplicationServiceImpl implements AttdApplicationService{
 //		
 //	}
 
-//	********************* 결재승인관리 시작 _2020.08.27 _준서 *********************
+@SuppressWarnings("unchecked")
+	//	********************* 결재승인관리 시작 _2020.09.04 _재영 *********************
 	@Override
-	public void modifyRestAttdList(HashMap<String,String> attdApplMap) {
-		// TODO Auto-generated method stub
-		System.out.println("aaaaaaaaaaaaaaaaa");
-		restAttdDAO.updateRestAttd(attdApplMap);		
+	public void modifyRestAttdList(HashMap<String,ArrayList<RestAttdTO>> attdApplMap) {
+		// TODO Auto-generated method stub	
+		
+		HashMap<String, String> data = new HashMap<>();
+		
+		ArrayList<RestAttdTO> list = attdApplMap.get("checkData");
+		
+		System.out.println("?????????????????"+list);
+		
+		for(RestAttdTO attd : list) {			
+			
+			data.put("applovalStatus", attd.getApplovalStatus());
+			data.put("rejectCause", attd.getRejectCause());
+			data.put("empCode", attd.getEmpCode());
+			data.put("couse", attd.getCause());
+			data.put("restAttdCode", attd.getRestAttdCode());
+			
+			System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZ"+data);
+			restAttdDAO.updateRestAttd(data);
+		}
+					
+				
+				
 	}
-//	********************* 결재승인관리 종료 _2020.08.27 _준서 *********************
+//	********************* 결재승인관리 종료 _2020.09.04 _재영 *********************
 	
 	@Override
 	public ArrayList<DayAttdMgtTO> findDayAttdMgtList(@Param("applyDay") String applyDay) {

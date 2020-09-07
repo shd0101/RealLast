@@ -1,9 +1,13 @@
-//************************* 결제승인관리 시작 _준서 *************************
+//************************* 결제승인관리 시작 _재영 *************************
 const AttdApplInput = [
     {
       headerName: "사원명",
       field: "empName",
-      width : 90
+      width : 90,
+      sortable: true,
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
+      checkboxSelection: true,
     },
     {
       headerName: "구분",
@@ -53,4 +57,4 @@ const AttdApplInput = [
   ];
 
 export default AttdApplInput;
-//************************* 결제승인관리 시작 _준서 *************************
+//************************* 결제승인관리 시작 _재영 *************************

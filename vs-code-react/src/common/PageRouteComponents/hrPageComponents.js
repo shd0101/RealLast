@@ -13,7 +13,7 @@ export { default as OverWork } from "ERP/HR/Page/OverWork/OverWork"; //2020-08-3
 // 근 태 관 리 =========================================================================================================================
 export { default as DayAttdManageContainer } from "ERP/HR/Page/DayAttdManage/DayAttdManageContainer"; // 2020-08-23 일 근태 관리   재영
 export { default as MonthAttdManageContainer } from "ERP/HR/Page/MonthAttendance/MonthAttdManageContainer"; // 2020-08-21 월 근태 관리  재영
-export { default as AttendanceApploval } from "ERP/HR/Page/AttendanceApploval/AttendanceApploval";  // 결재승인관리 _준서
+export { default as AttendanceApploval } from "ERP/HR/Page/AttendanceApploval/AttdApplContainer";  // 2020-09-04 결재승인관리 _재영
 
 // 급 여 조 회 =========================================================================================================================
 export { default as MonthSalaryManage } from "ERP/HR/Page/MonthSalary/MonthSalaryManage"; //2020-08-20 63기 손유찬 -- 월별 급여조회

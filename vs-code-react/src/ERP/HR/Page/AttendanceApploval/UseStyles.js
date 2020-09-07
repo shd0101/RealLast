@@ -41,6 +41,9 @@ const UseStyles = makeStyles(theme => ({
     topFormControl: {
       margin: theme.spacing(1),
       minWidth: 300
+    },
+    radio: {
+      marginLeft: theme.spacing(2)
     }
   }));
 
